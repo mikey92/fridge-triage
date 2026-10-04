@@ -61,7 +61,8 @@ function countedHold(outage: Outage): number | null {
 export function outageHours(outage: Outage, now: number): number | null {
   if (!outage.start) return null;
   const start = Date.parse(outage.start);
-  const end = outage.end ? Date.parse(outage.end) : now;
+  // While the power is still out, a screen clock that ticked just before the start is not an error: 0 hours so far.
+  const end = outage.end ? Date.parse(outage.end) : Math.max(now, start);
   if (!Number.isFinite(start) || !Number.isFinite(end) || end < start || start > now + GRACE || end > now + GRACE) return null;
   return (end - start) / HOUR;
 }

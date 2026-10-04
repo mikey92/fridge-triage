@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { FREEZER_ROWS, FRIDGE_ROWS, ROWS, rowById, searchRows } from "../src/chart";
-import { effectiveRow, moveRow, verdict, type Item, type Outage } from "../src/rules";
+import { effectiveRow, moveRow, outageHours, verdict, type Item, type Outage } from "../src/rules";
+import { coldClock } from "../src/time";
 
 const START = Date.parse("2026-10-04T14:00:00-07:00");
 const NOW = START + 200 * 3_600_000; // the outages below have all ended by now
@@ -194,6 +195,13 @@ describe("items and outages the app can't judge", () => {
     }
     const future = outage(5, { start: new Date(NOW + 3 * 3_600_000).toISOString(), end: null });
     expect(judge(item("r-hard-cheese"), future).call).toBe("check");
+  });
+
+  it("treat a screen clock a few seconds behind a just-started outage as 0 hours, not an error", () => {
+    const justStarted = outage(0, { start: new Date(NOW + 20_000).toISOString(), end: null });
+    expect(outageHours(justStarted, NOW)).toBe(0);
+    expect(judge(item("r-milk"), justStarted).call).toBe("keep");
+    expect(coldClock(justStarted, NOW)?.outMs).toBe(0);
   });
 });
 

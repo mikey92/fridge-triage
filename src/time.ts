@@ -15,7 +15,7 @@ export type Clock = {
 export function coldClock(outage: Outage, now: number): Clock | null {
   if (!outage.start) return null;
   const start = Date.parse(outage.start);
-  const end = outage.end ? Date.parse(outage.end) : now;
+  const end = outage.end ? Date.parse(outage.end) : Math.max(now, start); // a tick just before the start is 0 so far
   // Times that don't add up get no clock; the screens say so instead (see outageHours in rules.ts).
   if (!Number.isFinite(start) || !Number.isFinite(end) || end < start || start > now + 5 * 60_000) return null;
   const outMs = end - start;
