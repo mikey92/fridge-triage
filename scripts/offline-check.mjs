@@ -27,5 +27,5 @@ await page.getByRole("button", { name: /See what to do/ }).click();
 const verdict = (await page.locator(".line").first().innerText()).replace(/\s+/g, " ");
 step(`verdict: ${verdict}`);
 if (!/Power out \d+ min: a closed fridge keeps food safe/.test(verdict)) throw new Error("expected a Keep verdict for milk minutes into the outage");
-await page.screenshot({ path: "offline-check.png" });
+await page.screenshot({ path: "test-results/offline-check.png" });
 await browser.close();
