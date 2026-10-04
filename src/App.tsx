@@ -97,6 +97,12 @@ function Home({ state, dispatch, go }: ScreenProps) {
           </button>
           <button type="button" className="secondary" onClick={() => go("outage")}>The power is back: check my food</button>
         </div>
+        <ol className="steps">
+          <li><strong>Start the cold clock</strong> when the power goes out: the fridge keeps food safe for about 4 hours, the freezer 24 to 48.</li>
+          <li><strong>Photograph the fridge and freezer</strong> when it's back, or add items by hand.</li>
+          <li><strong>Get Toss, Check, Refreeze or Keep</strong> for every item, with the chart row it comes from, and a dated record of what you threw out.</li>
+        </ol>
+        <p className="muted small">The AI only names the food. Every decision comes from the FoodSafety.gov power-outage charts.</p>
       </section>
     );
   }

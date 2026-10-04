@@ -250,3 +250,7 @@ button.danger { border-color: var(--toss); color: var(--toss); background: trans
   .record-table .blank { border-bottom: 1px solid #000; }
   a { color: #000; }
 }
+
+.steps { margin: 24px 0 12px; padding-left: 1.3em; }
+.steps li { margin: 0 0 10px; }
+.small { font-size: 0.9rem; }
