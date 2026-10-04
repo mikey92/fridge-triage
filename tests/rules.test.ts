@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { FREEZER_ROWS, FRIDGE_ROWS, ROWS, rowById, searchRows } from "../src/chart";
-import { effectiveRow, verdict, type Item, type Outage } from "../src/rules";
+import { effectiveRow, moveRow, verdict, type Item, type Outage } from "../src/rules";
 
 const START = Date.parse("2026-10-04T14:00:00-07:00");
 const hoursLater = (h: number) => new Date(START + h * 3_600_000).toISOString();
@@ -145,5 +145,24 @@ describe("items the chart can't place", () => {
 
   it("asks for the outage start before judging", () => {
     expect(verdict(item("r-milk"), { ...outage(5), start: null }).call).toBe("check");
+  });
+});
+
+describe("fixing an item", () => {
+  it("moves its row to the other appliance's chart", () => {
+    expect(moveRow("r-milk")).toBe("f-milk");
+    expect(moveRow("f-meat")).toBe("r-meat");
+    expect(moveRow("r-condiments")).toBeNull();
+  });
+
+  it("re-judges milk moved to a freezer past its hold time: Refreeze with ice crystals, Toss without", () => {
+    expect(verdict(item("f-milk", { ice: true }), outage(30)).call).toBe("refreeze");
+    expect(verdict(item("f-milk"), outage(30)).call).toBe("toss");
+  });
+
+  it("turns cut melon into a whole melon: Toss becomes Keep", () => {
+    const melon = item("r-fruit-cut", { cut: true });
+    expect(verdict(melon, outage(7.5)).call).toBe("toss");
+    expect(verdict({ ...melon, cut: false }, outage(7.5)).call).toBe("keep");
   });
 });

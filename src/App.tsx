@@ -161,7 +161,9 @@ function Results({ state, dispatch, go, now }: ScreenProps & { now: number }) {
         <a href="#/outage">Change</a>
       </p>
       <Verdicts items={state.items} outage={state.outage} now={now}
-        onToggleCleared={(item) => dispatch({ type: "update", id: item.id, patch: { cleared: !item.cleared } })} />
+        onToggleCleared={(item) => dispatch({ type: "update", id: item.id, patch: { cleared: !item.cleared } })}
+        onChange={(item, patch) => dispatch({ type: "update", id: item.id, patch })}
+        onRemove={(item) => dispatch({ type: "remove", id: item.id })} />
       <button type="button" className="secondary" onClick={() => go("check")}>Add more food</button>
     </section>
   );

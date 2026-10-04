@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { CHART_REVIEWED, CHART_URL } from "../chart";
 import { CALL_ORDER, verdict, type Call, type Item, type Outage, type Verdict } from "../rules";
+import { ItemEditor } from "./ItemEditor";
 
 const TITLES: Record<Call, string> = { toss: "Toss", check: "Check", refreeze: "Refreeze", keep: "Keep" };
 const HINTS: Record<Call, string> = {
@@ -13,14 +15,17 @@ export function judge(items: Item[], outage: Outage, now: number) {
   return items.map((item) => ({ item, verdict: verdict(item, outage, now) }));
 }
 
-/** The four sections in Toss, Check, Refreeze, Keep order, each item with its reason and chart row. */
-export function Verdicts({ items, outage, now, onToggleCleared }: {
-  items: Item[];
-  outage: Outage;
-  now: number;
+type Handlers = {
   onToggleCleared?: (item: Item) => void;
-}) {
+  onChange?: (item: Item, patch: Partial<Item>) => void;
+  onRemove?: (item: Item) => void;
+};
+
+/** The four sections in Toss, Check, Refreeze, Keep order, each item with its reason and chart row. */
+export function Verdicts({ items, outage, now, ...handlers }: { items: Item[]; outage: Outage; now: number } & Handlers) {
   const judged = judge(items, outage, now);
+  // Kept here, not in each line, so an item's editor stays open when a fix moves it to another section.
+  const [editing, setEditing] = useState<string | null>(null);
   return (
     <div className="verdicts">
       <p className="summary" aria-live="polite">
@@ -34,10 +39,12 @@ export function Verdicts({ items, outage, now, onToggleCleared }: {
         if (!group.length) return null;
         return (
           <section key={call} className={`verdict-group group-${call}`} aria-labelledby={`h-${call}`}>
-            <h2 id={`h-${call}`}><span className={`tag tag-${call}`}>{TITLES[call]}</span> {HINTS[call]}</h2>
+            <h2 id={`h-${call}`}><span className="tag-wrap"><span className={`tag tag-${call}`}>{TITLES[call]}</span></span> {HINTS[call]}</h2>
             <ul>
               {group.map(({ item, verdict }) => (
-                <VerdictLine key={item.id} item={item} verdict={verdict} onToggleCleared={call === "toss" || call === "check" ? onToggleCleared : undefined} />
+                <VerdictLine key={item.id} item={item} verdict={verdict} {...handlers}
+                  editing={editing === item.id} onEdit={(open) => setEditing(open ? item.id : null)}
+                  onToggleCleared={call === "toss" || call === "check" ? handlers.onToggleCleared : undefined} />
               ))}
             </ul>
           </section>
@@ -51,7 +58,9 @@ export function Verdicts({ items, outage, now, onToggleCleared }: {
   );
 }
 
-function VerdictLine({ item, verdict, onToggleCleared }: { item: Item; verdict: Verdict; onToggleCleared?: (item: Item) => void }) {
+function VerdictLine({ item, verdict, editing, onEdit, onToggleCleared, onChange, onRemove }:
+  { item: Item; verdict: Verdict; editing: boolean; onEdit: (open: boolean) => void } & Handlers) {
+  const unsure = item.from === "photo" && (!item.sure || !item.row);
   return (
     <li className={item.cleared ? "line cleared" : "line"}>
       <div className="line-head">
@@ -66,6 +75,17 @@ function VerdictLine({ item, verdict, onToggleCleared }: { item: Item; verdict: 
         <p className="line-row">
           Chart: “{verdict.row.label}”{verdict.column ? ` · ${verdict.column}` : ""}{verdict.row.onChart ? "" : " · not a chart row"}
         </p>
+      )}
+      {onChange && (
+        <div className="line-actions">
+          {unsure && <span className="unsure">Check the match</span>}
+          <button type="button" className="link" aria-expanded={editing} onClick={() => onEdit(!editing)}>
+            {editing ? "Done" : "Fix"}
+          </button>
+        </div>
+      )}
+      {editing && onChange && onRemove && (
+        <ItemEditor item={item} onChange={(patch) => onChange(item, patch)} onRemove={() => onRemove(item)} />
       )}
     </li>
   );

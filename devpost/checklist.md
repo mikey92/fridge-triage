@@ -39,7 +39,7 @@ Build mode: fast (the entrant delegated the build and the hands-on checks to the
   Learner check: Add the sample photo and compare the list with what is in the picture.
   Commit: `Recognize food in fridge photos`
 
-- [ ] **4. Fix what the AI got wrong in one tap**
+- [x] **4. Fix what the AI got wrong in one tap**
   Becomes usable: Change an item's chart row, mark it cut or opened, move it to the freezer, mark ice crystals, remove it, or add a missing item; the verdict changes immediately; unsure matches are flagged.
   Why now: The recognizer will make mistakes; the person correcting it is part of the kernel's promise (unknown never becomes Keep).
   PRD ref: `prd.md > Review and edit`
