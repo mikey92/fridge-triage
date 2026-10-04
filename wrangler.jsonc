@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "fridge-triage",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+  // Caps photo recognition per visitor so a public demo can't run up the model quota.
+  "ratelimits": [
+    { "name": "RECOGNIZE_LIMIT", "namespace_id": "6101", "simple": { "limit": 6, "period": 60 } }
+  ],
+  "vars": { "MODEL": "gpt-5.5" },
+  // RELAY_URL and RELAY_KEY are secrets: `wrangler secret put RELAY_URL`, `wrangler secret put RELAY_KEY`,
+  // and in .dev.vars for local runs (see .dev.vars.example).
+  "observability": { "enabled": true }
+}
