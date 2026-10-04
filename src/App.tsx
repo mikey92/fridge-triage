@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Place, Row } from "./chart";
 import { ColdClock } from "./components/ColdClock";
 import { OutageForm } from "./components/OutageForm";
+import { PhotoSlots } from "./components/PhotoSlots";
 import { RowPicker } from "./components/RowPicker";
 import { Verdicts } from "./components/Verdicts";
 import { formatHours, outageHours } from "./rules";
@@ -125,6 +126,10 @@ function Check({ state, dispatch, go }: ScreenProps) {
       {!state.outage.start && (
         <p className="notice">Add <a href="#/outage">when the power went out</a> to get verdicts.</p>
       )}
+      <div className="card">
+        <PhotoSlots onItems={(found) => dispatch({ type: "add", items: found.map((item) => newItem({ ...item, from: "photo" })) })} />
+      </div>
+      <h2 className="subhead">Or add items by hand</h2>
       <div className="card">
         <div className="segmented" role="group" aria-label="Where is it?">
           {(["fridge", "freezer"] as const).map((p) => (

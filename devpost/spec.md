@@ -190,4 +190,5 @@ fridge-triage/
 - **Conservative defaults** — unknown row, unknown freezer fill, or a door that was opened all move items toward Check or Toss.
 - **The entrant's own relay** for the model, rate limited — no new paid service; tradeoff: the public demo depends on that relay being up, so manual mode must stay complete.
 - **One genuine uncertainty**: whether a vision model reliably tells shredded from block cheese and cut from whole fruit in an ordinary fridge photo. Checked in the first slice with the sample photo; if it can't, the "check the match" flag and one-tap row change carry the demo.
+  Result (slice 3): on the sample USDA fridge photo the model listed "bag of shredded cheese" and "block of cheese" as separate items with the right rows, and "container of cut pineapple" as cut fruit, in about 17 seconds for 26 items.
 - Carried from `prd.md > Open Questions`: none blocking.

@@ -1,0 +1,4 @@
+# Photo recognition: an OpenAI Responses-API-compatible endpoint (the app posts to {RELAY_URL}/responses).
+# Without these the app runs in manual mode.
+RELAY_URL=https://your-relay.example.com
+RELAY_KEY=replace-me

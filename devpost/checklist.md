@@ -29,7 +29,7 @@ Build mode: fast (the entrant delegated the build and the hands-on checks to the
   Learner check: Start an outage set to an hour ago, reload the page, and check the clock kept counting.
   Commit: `Add the cold clock and keep the outage on the device`
 
-- [ ] **3. A photo of the fridge becomes the item list**
+- [x] **3. A photo of the fridge becomes the item list**
   Becomes usable: Add a fridge photo and, about twenty seconds later, the food in it appears in the list matched to chart rows, with verdicts.
   Why now: The riskiest external piece (the model relay with images and a JSON schema), checked early and on its own behavior; the kernel is already there to receive it.
   PRD ref: `prd.md > Photo recognition`, `prd.md > The Core Journey` (step 4)
