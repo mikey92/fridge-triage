@@ -2,7 +2,7 @@
 
 After a power outage, photograph your fridge and freezer and get a keep-or-toss call for every item, straight from the FoodSafety.gov charts and your outage times, plus a dated record of what you threw out.
 
-**Live:** https://fridge-triage.mikey9220.workers.dev
+**Live:** https://fridge-triage.mikey9220.workers.dev · **Demo video (2 min):** https://youtu.be/q6CeWpU4YE0
 
 ## Why
 
