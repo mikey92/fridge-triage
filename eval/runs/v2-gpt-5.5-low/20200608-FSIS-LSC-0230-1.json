@@ -1,0 +1,50 @@
+{
+ "photo": "20200608-FSIS-LSC-0230.jpg",
+ "run": 1,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 4.738,
+ "error": null,
+ "items": [
+  {
+   "name": "bag of shredded mozzarella cheese",
+   "place": "fridge",
+   "row": "r-shredded-cheese",
+   "cut": null,
+   "opened": false,
+   "sure": true
+  },
+  {
+   "name": "package of cheese slices",
+   "place": "fridge",
+   "row": "r-processed-cheese",
+   "cut": null,
+   "opened": false,
+   "sure": false
+  },
+  {
+   "name": "block of Kraft original cream cheese",
+   "place": "fridge",
+   "row": "r-soft-cheese",
+   "cut": null,
+   "opened": false,
+   "sure": true
+  },
+  {
+   "name": "party tray of sliced cheeses",
+   "place": "fridge",
+   "row": "r-soft-cheese",
+   "cut": null,
+   "opened": false,
+   "sure": false
+  },
+  {
+   "name": "ball of fresh mozzarella cheese",
+   "place": "fridge",
+   "row": "r-soft-cheese",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  }
+ ]
+}

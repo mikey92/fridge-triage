@@ -1,0 +1,122 @@
+{
+ "photo": "20200605-FSIS-LSC-0075.jpg",
+ "run": 1,
+ "model": "gpt-6.1-sol",
+ "effort": "low",
+ "seconds": 19.111,
+ "error": null,
+ "items": [
+  {
+   "name": "bottle of milk",
+   "place": "fridge",
+   "row": "r-milk",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "bottle of green juice, exact contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "eggs in a clear bin",
+   "place": "fridge",
+   "row": "r-eggs",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "large tub of hummus",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "tub of yogurt",
+   "place": "fridge",
+   "row": "r-milk",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "red-lidded container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "bag of leafy greens",
+   "place": "fridge",
+   "row": "r-greens",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "foil-wrapped food with yellow slices visible, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "clear package of green bell peppers",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "yellow bell pepper in a plastic bin",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "partly hidden red food package, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "partly visible package of flour tortillas on the upper shelf",
+   "place": "fridge",
+   "row": "r-bread",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "partly hidden jar with a gold lid, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "partly visible clear container at the lower left, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  }
+ ]
+}

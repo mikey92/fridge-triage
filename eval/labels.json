@@ -1,0 +1,190 @@
+{
+ "about": "Hand labels for the recognizer evaluation. Each photo lists what is actually in it and which chart rows are right for each item. rows: acceptable row ids (null = no chart row fits, so the app should say Check). ambiguous: the right row can't be told from the photo, so the item is left out of the safety count. unclear: contents can't be seen; any Toss or Check answer is fine, a Keep is counted as 'unclear kept'. All items are in the fridge. Labeled by looking at the full-size photos.",
+ "photos": {
+  "20200605-FSIS-LSC-0059": {
+   "set": "tune",
+   "items": [
+    { "id": "oj", "what": "orange juice bottle", "rows": ["r-juice", "r-juice-sealed"] },
+    { "id": "milk-bottle", "what": "white bottle of milk, purple cap", "rows": ["r-milk"] },
+    { "id": "pink-drink", "what": "small pink bottle of strawberry milk or yogurt drink", "rows": ["r-milk"] },
+    { "id": "green-juice", "what": "bottle of green juice (fruit and vegetable)", "rows": ["r-juice", "r-juice-sealed", "r-veg-juice", "r-veg-juice-sealed"], "ambiguous": true },
+    { "id": "milk-glass", "what": "glass bottle of whole milk, red cap", "rows": ["r-milk"] },
+    { "id": "swiss", "what": "block of Swiss cheese, green wrapper", "rows": ["r-hard-cheese"] },
+    { "id": "cheddar", "what": "block of mild cheddar, blue wrapper", "rows": ["r-hard-cheese"] },
+    { "id": "hummus", "what": "tub of hummus (not on the chart)", "rows": [null] },
+    { "id": "small-container", "what": "small red-lidded container on the hummus", "unclear": true },
+    { "id": "eggs", "what": "raw eggs in a clear bin", "rows": ["r-eggs"] },
+    { "id": "lettuce", "what": "living butter lettuce in a clamshell", "rows": ["r-greens", "r-veg-whole"], "ambiguous": true },
+    { "id": "poultry", "what": "whole raw chicken or turkey in a yellow-and-red package, in a clear bin", "rows": ["r-meat", "r-thawing-meat"] },
+    { "id": "yogurt", "what": "large tub of yogurt, top shelf at the back", "rows": ["r-milk"] },
+    { "id": "pineapple", "what": "cut pineapple spears in a dish", "rows": ["r-fruit-cut"] },
+    { "id": "bread", "what": "bread rolls in a zip bag", "rows": ["r-bread", "r-breakfast"] },
+    { "id": "peas", "what": "container of green peas", "rows": ["r-veg-cooked", "r-veg-cut"] },
+    { "id": "back-containers", "what": "lidded containers at the back of the top shelf", "unclear": true },
+    { "id": "drawer-meat", "what": "packages of bacon, pre-sliced deli meat and ground meat in the left drawer", "rows": ["r-meat", "r-lunchmeat"] },
+    { "id": "white-balls", "what": "narrow container of small white balls in the left drawer", "unclear": true },
+    { "id": "oranges", "what": "whole oranges", "rows": ["r-fruit-whole"] },
+    { "id": "apples", "what": "whole apples", "rows": ["r-fruit-whole"] },
+    { "id": "limes", "what": "whole limes", "rows": ["r-fruit-whole"] },
+    { "id": "lemons", "what": "whole lemons", "rows": ["r-fruit-whole"] },
+    { "id": "snap-peas", "what": "bag of sugar snap peas", "rows": ["r-veg-whole"] },
+    { "id": "corn", "what": "corn on the cob in a wrapped tray", "rows": ["r-veg-whole"] },
+    { "id": "cucumber", "what": "whole cucumber", "rows": ["r-veg-whole"] },
+    { "id": "onion", "what": "red onion", "rows": ["r-veg-whole"] },
+    { "id": "green-beans", "what": "bag of green beans", "rows": ["r-veg-whole"] },
+    { "id": "salad-bag", "what": "bag of pre-washed salad greens", "rows": ["r-greens"] },
+    { "id": "tomato", "what": "whole tomato", "rows": ["r-veg-whole"] },
+    { "id": "teal-carton", "what": "partly hidden teal carton behind the milk", "unclear": true }
+   ],
+   "ignore": ["baking soda box", "odor absorber box"]
+  },
+  "20200605-FSIS-LSC-0075": {
+   "set": "tune",
+   "items": [
+    { "id": "milk", "what": "bottle of whole milk", "rows": ["r-milk"] },
+    { "id": "green-juice", "what": "bottle of green juice (kale, greens)", "rows": ["r-veg-juice", "r-veg-juice-sealed", "r-juice", "r-juice-sealed"], "ambiguous": true },
+    { "id": "eggs", "what": "raw eggs", "rows": ["r-eggs"] },
+    { "id": "hummus", "what": "tub of hummus (not on the chart)", "rows": [null] },
+    { "id": "small-container", "what": "small red-lidded container on the hummus", "unclear": true },
+    { "id": "yogurt", "what": "tub of Greek yogurt", "rows": ["r-milk"] },
+    { "id": "lemon-cut", "what": "cut lemon in foil", "rows": ["r-fruit-cut"] },
+    { "id": "grapes", "what": "produce bag of green grapes", "rows": ["r-fruit-whole", "r-veg-whole"] },
+    { "id": "lettuce", "what": "living lettuce in a clamshell", "rows": ["r-greens", "r-veg-whole"], "ambiguous": true },
+    { "id": "poultry", "what": "raw poultry in a yellow package, bottom right, partly visible", "rows": ["r-meat", "r-thawing-meat"] },
+    { "id": "jar", "what": "glass jar behind the eggs", "unclear": true },
+    { "id": "white-container", "what": "small white container behind the bag", "unclear": true },
+    { "id": "upper-package", "what": "package marked \"flour\" on the shelf above, top right (flour or tortillas)", "unclear": true }
+   ],
+   "ignore": []
+  },
+  "20200605-FSIS-LSC-0096": {
+   "set": "tune",
+   "items": [
+    { "id": "lemon-half", "what": "half a lemon, cut side up", "rows": ["r-fruit-cut"] },
+    { "id": "corn", "what": "corn on the cob in a wrapped tray", "rows": ["r-veg-whole"] },
+    { "id": "peas", "what": "container of green peas", "rows": ["r-veg-cooked", "r-veg-cut"] },
+    { "id": "cucumber-slices", "what": "sliced cucumbers in liquid (pickles or cut cucumber)", "rows": ["r-condiments", "r-veg-cut"], "ambiguous": true },
+    { "id": "green-sauce", "what": "container of green sauce", "unclear": true },
+    { "id": "hummus", "what": "tub of hummus (not on the chart)", "rows": [null] },
+    { "id": "soup", "what": "container of broth or soup with vegetables, front left", "rows": ["r-casserole", "r-gravy", "r-veg-cooked"] },
+    { "id": "other-containers", "what": "other lidded containers on the left and at the back", "unclear": true }
+   ],
+   "ignore": ["baking soda box"]
+  },
+  "20200608-FSIS-LSC-0115": {
+   "set": "tune",
+   "items": [
+    { "id": "cake", "what": "container of white cake", "rows": ["r-bread", "r-cream-pastry", "r-cheesecake", "r-custard"], "ambiguous": true },
+    { "id": "frappe", "what": "half-finished blended coffee drink with milk in a domed cup", "rows": ["r-milk"] },
+    { "id": "oj", "what": "orange juice bottle", "rows": ["r-juice", "r-juice-sealed"] },
+    { "id": "yogurt-bottle", "what": "bottle of Bulgarian yogurt, left edge", "rows": ["r-milk"] },
+    { "id": "sauce", "what": "deli container of tomato sauce or soup, right", "rows": ["r-pasta-sauce", "r-casserole", "r-gravy", "r-condiments"], "ambiguous": true },
+    { "id": "other-containers", "what": "other containers on the right", "unclear": true }
+   ],
+   "ignore": ["soda bottle", "can of sparkling lemon drink"]
+  },
+  "20200608-FSIS-LSC-0179": {
+   "set": "tune",
+   "items": [
+    { "id": "watermelon", "what": "cut watermelon chunks", "rows": ["r-fruit-cut"] },
+    { "id": "melon", "what": "cut honeydew or cantaloupe chunks", "rows": ["r-fruit-cut"] },
+    { "id": "peas", "what": "container of green peas", "rows": ["r-veg-cooked", "r-veg-cut"] },
+    { "id": "potato-salad", "what": "potato salad", "rows": ["r-potato-salad", "r-cooked-starch", "r-pasta-salad"] },
+    { "id": "cornbread", "what": "cornbread, top edge, partly visible", "rows": ["r-bread"] },
+    { "id": "other-containers", "what": "containers of brown sauce and others at the back", "unclear": true }
+   ],
+   "ignore": []
+  },
+  "20200608-FSIS-LSC-0198": {
+   "set": "tune",
+   "items": [
+    { "id": "yogurt-bottle", "what": "bottle of Bulgarian yogurt", "rows": ["r-milk"] },
+    { "id": "oj", "what": "orange juice bottle", "rows": ["r-juice", "r-juice-sealed"] },
+    { "id": "frappe", "what": "half-finished Starbucks mocha frappuccino", "rows": ["r-milk"] },
+    { "id": "mayo", "what": "opened squeeze bottle of mayonnaise, upside down", "rows": ["r-mayo", "r-mayo-sealed"] },
+    { "id": "squeeze2", "what": "second upside-down squeeze container", "unclear": true },
+    { "id": "butter", "what": "tub of gourmet butter", "rows": ["r-butter"] },
+    { "id": "hummus", "what": "tub of hummus (not on the chart)", "rows": [null] },
+    { "id": "meat-leftovers", "what": "container of cooked meat leftovers, right", "rows": ["r-meat"] },
+    { "id": "salad", "what": "container of macaroni, potato or egg salad, right", "rows": ["r-pasta-salad", "r-potato-salad", "r-meat-salad", "r-cooked-starch"] },
+    { "id": "peas", "what": "container of peas or edamame, bottom right", "rows": ["r-veg-cooked", "r-veg-cut"] },
+    { "id": "other-containers", "what": "red-sauce container and white tray at the back", "unclear": true }
+   ],
+   "ignore": ["soda bottle", "can of sparkling lemon drink"]
+  },
+  "20200608-FSIS-LSC-0230": {
+   "set": "tune",
+   "items": [
+    { "id": "shredded", "what": "bag of shredded Mexican-style cheese", "rows": ["r-shredded-cheese"] },
+    { "id": "swiss", "what": "block of Swiss cheese", "rows": ["r-hard-cheese"] },
+    { "id": "cream-cheese", "what": "box of cream cheese", "rows": ["r-soft-cheese"] },
+    { "id": "cheddar", "what": "block of cheddar behind the cream cheese", "rows": ["r-hard-cheese"] },
+    { "id": "party-tray", "what": "sliced cheese party tray that includes Monterey Jack (a soft cheese on the chart)", "rows": ["r-soft-cheese"] },
+    { "id": "mozzarella", "what": "ball of fresh mozzarella", "rows": ["r-soft-cheese"] }
+   ],
+   "ignore": []
+  },
+  "20200608-FSIS-LSC-0237": {
+   "set": "tune",
+   "items": [
+    { "id": "chicken", "what": "whole raw chicken in its package, meat drawer", "rows": ["r-meat", "r-thawing-meat"] },
+    { "id": "bacon", "what": "raw bacon in a zip bag, meat drawer", "rows": ["r-lunchmeat", "r-meat"] }
+   ],
+   "ignore": []
+  },
+  "20200608-FSIS-LSC-0093": {
+   "set": "held-out",
+   "items": [
+    { "id": "avocado", "what": "whole avocado", "rows": ["r-fruit-whole"] },
+    { "id": "avocado-cut", "what": "cut avocado halves at the back", "rows": ["r-fruit-cut"] },
+    { "id": "edamame", "what": "container of shelled edamame", "rows": ["r-veg-cooked", "r-veg-cut"] },
+    { "id": "salad", "what": "container of potato, macaroni or egg salad", "rows": ["r-potato-salad", "r-pasta-salad", "r-meat-salad", "r-cooked-starch"] },
+    { "id": "orange-mash", "what": "container of orange mash or soup (squash or sweet potato)", "rows": ["r-veg-cooked", "r-casserole", "r-cooked-starch"] },
+    { "id": "back-container", "what": "container at the back left", "unclear": true },
+    { "id": "back-jars", "what": "jars with blue and red caps behind the avocado", "unclear": true },
+    { "id": "left-tray", "what": "black food tray at the lower left edge", "unclear": true },
+    { "id": "upper-shelf", "what": "containers seen on the shelf above", "unclear": true }
+   ],
+   "ignore": []
+  },
+  "20200608-FSIS-LSC-0109": {
+   "set": "held-out",
+   "items": [
+    { "id": "oj", "what": "orange juice bottle", "rows": ["r-juice", "r-juice-sealed"] },
+    { "id": "frappe", "what": "half-finished blended coffee drink with milk", "rows": ["r-milk"] },
+    { "id": "mushrooms", "what": "tray of whole white mushrooms", "rows": ["r-mushrooms-herbs"] },
+    { "id": "sauce", "what": "deli container of red sauce, front", "rows": ["r-pasta-sauce", "r-casserole", "r-gravy", "r-condiments"], "ambiguous": true },
+    { "id": "right-containers", "what": "containers at the lower right edge (sliced radishes; fruit printed on a foil lid)", "unclear": true }
+   ],
+   "ignore": ["soda bottle", "can of sparkling lemon drink", "yogurt cups at the edge"]
+  },
+  "20200608-FSIS-LSC-0138": {
+   "set": "held-out",
+   "items": [
+    { "id": "apples", "what": "whole apples", "rows": ["r-fruit-whole"] },
+    { "id": "oranges", "what": "whole oranges", "rows": ["r-fruit-whole"] },
+    { "id": "lemons", "what": "whole lemons", "rows": ["r-fruit-whole"] },
+    { "id": "limes", "what": "whole limes", "rows": ["r-fruit-whole"] },
+    { "id": "pears", "what": "whole green pears or apples", "rows": ["r-fruit-whole"] }
+   ],
+   "ignore": []
+  },
+  "20200608-FSIS-LSC-0211": {
+   "set": "held-out",
+   "items": [
+    { "id": "eggs", "what": "raw eggs in a clear container", "rows": ["r-eggs"] },
+    { "id": "cream", "what": "carton of cream at the right edge (label: 1 Tbsp, 50 calories, 5 g fat)", "rows": ["r-milk"] },
+    { "id": "below-shelf", "what": "bottles and containers seen through the glass shelf below", "unclear": true }
+   ],
+   "ignore": []
+  },
+  "20200608-FSIS-LSC-0234": {
+   "set": "held-out",
+   "items": [
+    { "id": "chicken", "what": "whole raw chicken in its package, in a tray in the meat drawer", "rows": ["r-meat", "r-thawing-meat"] },
+    { "id": "bacon", "what": "raw bacon in a zip bag", "rows": ["r-lunchmeat", "r-meat"] }
+   ],
+   "ignore": []
+  }
+ }
+}

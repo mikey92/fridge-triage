@@ -1,0 +1,66 @@
+{
+ "photo": "20200608-FSIS-LSC-0109.jpg",
+ "run": 1,
+ "model": "gpt-6.1-sol",
+ "effort": "low",
+ "seconds": 12.044,
+ "error": null,
+ "items": [
+  {
+   "name": "large bottle of orange juice",
+   "place": "fridge",
+   "row": "r-juice",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "small bottle, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "takeout cup with straw, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "wrapped tray of white mushrooms",
+   "place": "fridge",
+   "row": "r-mushrooms-herbs",
+   "cut": null,
+   "opened": false,
+   "sure": false
+  },
+  {
+   "name": "partly visible container with reddish contents, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "covered container at the right edge, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "covered container at the bottom right, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  }
+ ]
+}

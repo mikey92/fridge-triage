@@ -1,0 +1,90 @@
+{
+ "photo": "20200605-FSIS-LSC-0075.jpg",
+ "run": 1,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 7.5,
+ "error": null,
+ "items": [
+  {
+   "name": "bottle of milk",
+   "place": "fridge",
+   "row": "r-milk",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "carton or bottle of green juice",
+   "place": "fridge",
+   "row": "r-veg-juice",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "shell eggs",
+   "place": "fridge",
+   "row": "r-eggs",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "bag of green grapes",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "foil-wrapped item, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "container of hummus",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "container of yogurt",
+   "place": "fridge",
+   "row": "r-milk",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "packaged leafy greens",
+   "place": "fridge",
+   "row": "r-greens",
+   "cut": true,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "covered container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "covered container with yellow contents, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  }
+ ]
+}

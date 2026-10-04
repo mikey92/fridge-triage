@@ -1,0 +1,66 @@
+{
+ "photo": "20200608-FSIS-LSC-0093.jpg",
+ "run": 1,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 7.374,
+ "error": null,
+ "items": [
+  {
+   "name": "whole avocado",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "cut avocado half",
+   "place": "fridge",
+   "row": "r-fruit-cut",
+   "cut": true,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "container of peas",
+   "place": "fridge",
+   "row": "r-veg-cooked",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "container of pasta salad or macaroni salad",
+   "place": "fridge",
+   "row": "r-pasta-salad",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "covered container with orange food, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "covered container with brown food, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "covered container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  }
+ ]
+}

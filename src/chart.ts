@@ -19,13 +19,14 @@ export type FreezerRule = "refreeze" | "discard" | "discard-after-6h";
 type Common = {
   id: string;
   group: string;
-  label: string; // the chart's own words
+  label: string; // the chart's own words (for the app's partner rows, onChart: false, the app's own)
   words: string[]; // everyday words for search and for the recognizer
   onChart: boolean; // false for the app's sealed partner rows
   cut?: boolean; // the state this row stands for, when the chart splits by it
   opened?: boolean;
   twin?: string; // the row for the other cut/opened state
   move?: string; // the matching row in the other appliance
+  lookAlike?: boolean; // a Keep row a photo can't tell from Toss rows that look the same (cheeses, butter): the person confirms an AI match
 };
 
 export type FridgeRow = Common & { place: "fridge"; rule: FridgeRule; note?: string };
@@ -56,9 +57,9 @@ export const FRIDGE_ROWS: FridgeRow[] = [
     { move: "f-meal" }),
   fridge("r-canned-ham", "Meat, poultry, seafood", "Canned hams labeled \"Keep Refrigerated\"", "discard", ["canned ham", "keep refrigerated ham"]),
   fridge("r-canned-meat", "Meat, poultry, seafood", "Canned meats and fish, opened", "discard",
-    ["opened tuna", "opened canned chicken", "opened sardines", "opened canned salmon", "opened spam"], { opened: true, twin: "r-canned-meat-sealed" }),
+    ["canned tuna", "canned chicken", "sardines", "canned salmon", "spam", "opened tuna", "opened canned chicken", "opened sardines", "opened canned salmon", "opened spam"], { opened: true, twin: "r-canned-meat-sealed" }),
   fridge("r-canned-meat-sealed", "Meat, poultry, seafood", "Canned meats and fish, sealed", "sealed",
-    ["canned tuna", "canned chicken", "sardines", "canned salmon", "spam"], { opened: false, twin: "r-canned-meat", onChart: false }),
+    ["sealed canned tuna", "unopened canned meat", "unopened can of fish"], { opened: false, twin: "r-canned-meat", onChart: false }),
   fridge("r-casserole", "Meat, poultry, seafood", "Casseroles, soups, stews", "discard",
     ["casserole", "soup", "stew", "chili", "lasagna", "curry", "leftover soup"], { move: "f-stews" }),
 
@@ -67,10 +68,10 @@ export const FRIDGE_ROWS: FridgeRow[] = [
     ["brie", "camembert", "blue cheese", "roquefort", "cottage cheese", "cream cheese", "edam", "monterey jack", "ricotta", "mozzarella", "muenster", "neufchatel", "queso blanco", "queso fresco", "feta", "goat cheese", "string cheese"],
     { move: "f-soft-cheese" }),
   fridge("r-hard-cheese", "Cheese", "Hard cheeses: Cheddar, Colby, Swiss, Parmesan, provolone, Romano", "keep",
-    ["cheddar", "colby", "swiss cheese", "parmesan wedge", "provolone", "romano", "block of cheese", "gouda", "gruyere"],
-    { move: "f-hard-cheese" }),
-  fridge("r-processed-cheese", "Cheese", "Processed cheeses", "keep", ["american cheese", "cheese slices", "velveeta", "processed cheese", "cheese spread"],
-    { move: "f-soft-cheese" }),
+    ["cheddar", "colby", "swiss cheese", "parmesan wedge", "provolone", "romano", "gruyere"],
+    { move: "f-hard-cheese", lookAlike: true }),
+  fridge("r-processed-cheese", "Cheese", "Processed cheeses", "keep", ["american cheese", "cheese singles", "velveeta", "processed cheese", "cheese spread"],
+    { move: "f-soft-cheese", lookAlike: true }),
   fridge("r-shredded-cheese", "Cheese", "Shredded cheeses", "discard", ["shredded cheese", "bag of shredded cheese", "shredded mozzarella", "shredded cheddar"],
     { move: "f-shredded-cheese" }),
   fridge("r-lowfat-cheese", "Cheese", "Low-fat cheeses", "discard", ["low-fat cheese", "reduced fat cheese", "part-skim cheese"],
@@ -82,10 +83,10 @@ export const FRIDGE_ROWS: FridgeRow[] = [
   fridge("r-milk", "Dairy", "Milk, cream, sour cream, buttermilk, evaporated milk, yogurt, eggnog, soy milk", "discard",
     ["milk", "cream", "half and half", "whipping cream", "sour cream", "buttermilk", "evaporated milk", "yogurt", "greek yogurt", "eggnog", "soy milk", "almond milk", "oat milk", "creamer"],
     { move: "f-milk" }),
-  fridge("r-butter", "Dairy", "Butter, margarine", "keep", ["butter", "margarine", "stick of butter"]),
-  fridge("r-formula", "Dairy", "Baby formula, opened", "discard", ["opened baby formula", "opened formula", "mixed formula"],
+  fridge("r-butter", "Dairy", "Butter, margarine", "keep", ["butter", "margarine", "stick of butter"], { lookAlike: true }),
+  fridge("r-formula", "Dairy", "Baby formula, opened", "discard", ["baby formula", "ready-to-feed formula", "formula bottle", "opened baby formula", "opened formula", "mixed formula"],
     { opened: true, twin: "r-formula-sealed" }),
-  fridge("r-formula-sealed", "Dairy", "Baby formula, sealed", "sealed", ["baby formula", "ready-to-feed formula"],
+  fridge("r-formula-sealed", "Dairy", "Baby formula, sealed", "sealed", ["sealed baby formula", "unopened formula"],
     { opened: false, twin: "r-formula", onChart: false }),
 
   // Eggs
@@ -142,12 +143,11 @@ export const FRIDGE_ROWS: FridgeRow[] = [
   fridge("r-bread", "Bread, cakes, cookies, pasta, grains", "Bread, rolls, cakes, muffins, quick breads, tortillas", "keep",
     ["bread", "rolls", "cake", "muffins", "banana bread", "tortillas", "buns"], { move: "f-bread" }),
   fridge("r-dough", "Bread, cakes, cookies, pasta, grains", "Refrigerator biscuits, rolls, cookie dough", "discard",
-    ["biscuit dough", "crescent rolls", "cookie dough", "pizza dough", "tube of dough"], { move: "f-dough" }),
+    ["biscuit dough", "crescent rolls", "cookie dough", "pizza dough", "tube of dough"]),
   fridge("r-cooked-starch", "Bread, cakes, cookies, pasta, grains", "Cooked pasta, rice, potatoes", "discard",
     ["leftover rice", "cooked rice", "cooked pasta", "leftover pasta", "mashed potatoes", "cooked potatoes", "noodles"], { move: "f-casserole" }),
   fridge("r-pasta-salad", "Bread, cakes, cookies, pasta, grains", "Pasta salads with mayonnaise or vinaigrette", "discard", ["pasta salad", "macaroni salad"]),
-  fridge("r-fresh-pasta", "Bread, cakes, cookies, pasta, grains", "Fresh pasta", "discard", ["fresh pasta", "ravioli", "tortellini", "gnocchi"],
-    { move: "f-dough" }),
+  fridge("r-fresh-pasta", "Bread, cakes, cookies, pasta, grains", "Fresh pasta", "discard", ["fresh pasta", "ravioli", "tortellini", "gnocchi"]),
   fridge("r-cheesecake", "Bread, cakes, cookies, pasta, grains", "Cheesecake", "discard", ["cheesecake"], { move: "f-cheesecake" }),
   fridge("r-breakfast", "Bread, cakes, cookies, pasta, grains", "Breakfast foods: waffles, pancakes, bagels", "keep",
     ["waffles", "pancakes", "bagels", "english muffins"], { move: "f-breakfast" }),
@@ -193,14 +193,14 @@ export const FREEZER_ROWS: FreezerRow[] = [
   freezer("f-ice-cream", "Dairy", "Ice cream, frozen yogurt", "discard", "discard", ["ice cream", "frozen yogurt", "gelato", "ice cream bars"]),
   freezer("f-soft-cheese", "Dairy", "Cheese (soft and semi-soft)", "refreeze", "discard", ["frozen mozzarella", "frozen soft cheese"],
     { iceNote: "Some loss of texture.", move: "r-soft-cheese" }),
-  freezer("f-hard-cheese", "Dairy", "Hard cheeses", "refreeze", "refreeze", ["frozen cheddar", "frozen parmesan", "frozen block of cheese"],
+  freezer("f-hard-cheese", "Dairy", "Hard cheeses", "refreeze", "refreeze", ["frozen cheddar", "frozen parmesan"],
     { move: "r-hard-cheese" }),
   freezer("f-shredded-cheese", "Dairy", "Shredded cheeses", "refreeze", "discard", ["frozen shredded cheese"], { move: "r-shredded-cheese" }),
   freezer("f-cheesecake", "Dairy", "Cheesecake", "refreeze", "discard", ["frozen cheesecake"], { move: "r-cheesecake" }),
   freezer("f-fruit-juice", "Fruits", "Juices", "refreeze", "refreeze", ["frozen juice concentrate", "frozen orange juice"],
     { warmNote: "Discard if mold, yeasty smell, or sliminess develops.", move: "r-juice" }),
   freezer("f-fruit", "Fruits", "Home or commercially packaged", "refreeze", "refreeze", ["frozen berries", "frozen fruit", "frozen mango", "frozen strawberries"],
-    { iceNote: "Will change texture and flavor.", warmNote: "Discard if mold, yeasty smell, or sliminess develops.", move: "r-fruit-whole" }),
+    { iceNote: "Will change texture and flavor.", warmNote: "Discard if mold, yeasty smell, or sliminess develops.", move: "r-fruit-cut" }),
   freezer("f-veg-juice", "Vegetables", "Juices", "refreeze", "discard-after-6h", ["frozen vegetable juice"], { move: "r-veg-juice" }),
   freezer("f-veg", "Vegetables", "Home or commercially packaged or blanched", "refreeze", "discard-after-6h",
     ["frozen peas", "frozen corn", "frozen broccoli", "frozen vegetables", "frozen spinach", "frozen green beans"],

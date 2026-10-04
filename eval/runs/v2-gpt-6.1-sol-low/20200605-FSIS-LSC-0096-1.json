@@ -1,0 +1,106 @@
+{
+ "photo": "20200605-FSIS-LSC-0096.jpg",
+ "run": 1,
+ "model": "gpt-6.1-sol",
+ "effort": "low",
+ "seconds": 18.589,
+ "error": null,
+ "items": [
+  {
+   "name": "Package of husked corn on the cob",
+   "place": "fridge",
+   "row": "r-veg-cut",
+   "cut": true,
+   "opened": false,
+   "sure": true
+  },
+  {
+   "name": "Half a lemon",
+   "place": "fridge",
+   "row": "r-fruit-cut",
+   "cut": true,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "Container of peas, preparation unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Container of cucumber slices, possibly pickled",
+   "place": "fridge",
+   "row": null,
+   "cut": true,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Red-lidded container at upper left, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Round blue-lidded container on the left, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Rectangular blue-lidded container at lower left, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Red-lidded jar with beige contents, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Small blue-lidded container behind the lemon, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Partly hidden white container at the back, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Blue-lidded container beneath the cucumber container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Covered container beneath the peas, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  }
+ ]
+}

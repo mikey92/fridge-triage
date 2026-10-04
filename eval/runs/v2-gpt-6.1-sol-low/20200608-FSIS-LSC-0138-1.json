@@ -1,0 +1,50 @@
+{
+ "photo": "20200608-FSIS-LSC-0138.jpg",
+ "run": 1,
+ "model": "gpt-6.1-sol",
+ "effort": "low",
+ "seconds": 8.619,
+ "error": null,
+ "items": [
+  {
+   "name": "red apples",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "green apples",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "oranges",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "lemons",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "limes",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  }
+ ]
+}

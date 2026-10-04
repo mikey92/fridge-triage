@@ -1,0 +1,58 @@
+{
+ "photo": "20200608-FSIS-LSC-0230.jpg",
+ "run": 1,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 3.245,
+ "error": null,
+ "items": [
+  {
+   "name": "bag of shredded cheese",
+   "place": "fridge",
+   "row": "r-shredded-cheese",
+   "cut": null,
+   "opened": false,
+   "sure": true
+  },
+  {
+   "name": "block of Swiss cheese",
+   "place": "fridge",
+   "row": "r-hard-cheese",
+   "cut": null,
+   "opened": false,
+   "sure": true
+  },
+  {
+   "name": "block of cheddar cheese",
+   "place": "fridge",
+   "row": "r-hard-cheese",
+   "cut": null,
+   "opened": false,
+   "sure": true
+  },
+  {
+   "name": "block of Kraft cheese",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": false,
+   "sure": false
+  },
+  {
+   "name": "party tray of sliced cheeses",
+   "place": "fridge",
+   "row": "r-hard-cheese",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "ball of mozzarella cheese",
+   "place": "fridge",
+   "row": "r-soft-cheese",
+   "cut": null,
+   "opened": false,
+   "sure": true
+  }
+ ]
+}

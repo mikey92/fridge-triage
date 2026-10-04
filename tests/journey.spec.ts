@@ -35,15 +35,22 @@ test("an outage, a photo, verdicts from the chart, a fix, and the loss record", 
 
   await expect(section(page, "carton of milk")).toHaveText("Toss");
   await expect(section(page, "bag of shredded cheese")).toHaveText("Toss");
-  await expect(section(page, "block of cheddar")).toHaveText("Keep");
   await expect(section(page, "container of cut melon")).toHaveText("Toss");
   await expect(section(page, "covered container, contents unclear")).toHaveText("Check");
-  await expect(section(page, "tub of ice cream")).toHaveText("Keep");
+  // The AI's match never keeps food on its own: the person confirms it first.
+  await expect(section(page, "block of cheddar")).toHaveText("Confirm");
+  await expect(section(page, "tub of ice cream")).toHaveText("Confirm");
   await expect(page.getByText("Chart: “Shredded cheeses”", { exact: false })).toBeVisible();
+  await page.getByRole("button", { name: "Yes, “block of cheddar” is right" }).click();
+  await expect(section(page, "block of cheddar")).toHaveText("Keep");
+  await expect(page.getByRole("button", { name: "Yes, “tub of ice cream” is right" })).toBeFocused();
 
   const melon = page.locator(".line").filter({ has: page.getByText("container of cut melon", { exact: true }) });
   await melon.getByRole("button", { name: "Fix" }).click();
   await melon.getByRole("button", { name: "Whole" }).click();
+  await expect(section(page, "container of cut melon")).toHaveText("Confirm");
+  await page.locator(".line").filter({ has: page.getByText("container of cut melon", { exact: true }) })
+    .locator(".editor").getByRole("button", { name: "Yes, that's right" }).click();
   await expect(section(page, "container of cut melon")).toHaveText("Keep");
 
   await page.getByRole("button", { name: "Save loss record" }).click();

@@ -1,0 +1,66 @@
+{
+ "photo": "20200608-FSIS-LSC-0109.jpg",
+ "run": 2,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 5.762,
+ "error": null,
+ "items": [
+  {
+   "name": "orange juice bottle",
+   "place": "fridge",
+   "row": "r-juice",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "bottle of orange-colored juice",
+   "place": "fridge",
+   "row": "r-juice",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "takeout cup with drink or dessert, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "whole white mushrooms",
+   "place": "fridge",
+   "row": "r-mushrooms-herbs",
+   "cut": false,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "foil-covered container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "sparkling lemonade can with foil cover",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "covered container of orange-red food, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": true,
+   "sure": false
+  }
+ ]
+}

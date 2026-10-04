@@ -1,0 +1,90 @@
+{
+ "photo": "20200608-FSIS-LSC-0093.jpg",
+ "run": 1,
+ "model": "gpt-6.1-sol",
+ "effort": "low",
+ "seconds": 14.326,
+ "error": null,
+ "items": [
+  {
+   "name": "whole avocado",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "avocado halves",
+   "place": "fridge",
+   "row": "r-fruit-cut",
+   "cut": true,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "container of green peas, preparation unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "blue-lidded container of mixed food, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "red-lidded container of orange-colored food, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "open container of brown food, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "partly hidden blue-lidded jar, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "partly hidden red-lidded jar, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "partly visible wrapped food tray on the left, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "partly visible container on the upper shelf, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  }
+ ]
+}

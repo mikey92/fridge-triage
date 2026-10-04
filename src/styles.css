@@ -10,6 +10,7 @@
   --check: #ffbf47;
   --refreeze: #6cb6ff;
   --keep: #4cd38a;
+  --confirm: #c9a8ff;
   --tag-text: #0e1013;
   color-scheme: dark;
 }
@@ -26,6 +27,7 @@
     --check: #8a5a00;
     --refreeze: #1f5fa8;
     --keep: #1b7a46;
+    --confirm: #6a3fa6;
     --tag-text: #ffffff;
     color-scheme: light;
   }
@@ -126,6 +128,7 @@ button.primary {
 .tag-check { background: var(--check); }
 .tag-refreeze { background: var(--refreeze); }
 .tag-keep { background: var(--keep); }
+.tag-confirm { background: var(--confirm); }
 
 .verdict-group { margin: 0 0 20px; }
 .verdict-group h2 { font-size: 1rem; font-weight: 600; margin: 0 0 8px; color: var(--muted); }
@@ -143,6 +146,7 @@ button.primary {
 .group-check .line { border-left-color: var(--check); }
 .group-refreeze .line { border-left-color: var(--refreeze); }
 .group-keep .line { border-left-color: var(--keep); }
+.group-confirm .line { border-left-color: var(--confirm); }
 .line.cleared { opacity: 0.55; }
 .line.cleared .line-name { text-decoration: line-through; }
 
@@ -222,6 +226,7 @@ input[aria-invalid="true"] { border-color: var(--toss); }
 
 .line-actions { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-top: 2px; }
 .unsure { font-size: 0.85rem; font-weight: 700; color: var(--check); }
+.line-actions button.yes { width: auto; padding: 8px 14px; }
 .editor { margin-top: 10px; padding-top: 12px; border-top: 1px dashed var(--line); display: flex; flex-direction: column; gap: 12px; }
 .editor .segmented { margin: 0; }
 .editor-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
@@ -254,3 +259,15 @@ button.danger { border-color: var(--toss); color: var(--toss); background: trans
 .steps { margin: 24px 0 12px; padding-left: 1.3em; }
 .steps li { margin: 0 0 10px; }
 .small { font-size: 0.9rem; }
+
+/* Toss and Check lines: the whole name is the tap target for "cleared". */
+.clear-toggle { display: flex; align-items: center; gap: 10px; min-height: 44px; flex: 1; cursor: pointer; }
+.clear-toggle input[type="checkbox"] { width: 24px; height: 24px; flex: none; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* "The AI wasn't sure" in the item editor. */
+.confirm { border: 1px solid var(--check); border-radius: 10px; padding: 10px 12px; margin: 0 0 12px; }
+.confirm p { margin: 0 0 8px; }
+
+/* °F / °C switch above the thermometer fields. */
+.segmented.unit { max-width: 160px; margin: 8px 0; }

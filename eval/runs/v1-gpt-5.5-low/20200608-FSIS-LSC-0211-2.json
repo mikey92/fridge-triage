@@ -1,0 +1,26 @@
+{
+ "photo": "20200608-FSIS-LSC-0211.jpg",
+ "run": 2,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 2.8,
+ "error": null,
+ "items": [
+  {
+   "name": "container of shell eggs",
+   "place": "fridge",
+   "row": "r-eggs",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "carton of cream",
+   "place": "fridge",
+   "row": "r-milk",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  }
+ ]
+}

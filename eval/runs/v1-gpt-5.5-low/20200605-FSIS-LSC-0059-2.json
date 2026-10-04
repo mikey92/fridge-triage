@@ -1,0 +1,210 @@
+{
+ "photo": "20200605-FSIS-LSC-0059.jpg",
+ "run": 2,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 15.448,
+ "error": null,
+ "items": [
+  {
+   "name": "orange juice",
+   "place": "fridge",
+   "row": "r-juice",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "carton of milk",
+   "place": "fridge",
+   "row": "r-milk",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "green bottled drink or juice",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "small bottle of pink dairy drink or yogurt drink",
+   "place": "fridge",
+   "row": "r-milk",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "stick of butter or margarine",
+   "place": "fridge",
+   "row": "r-butter",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "tub of spread or dip, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "carton of eggs",
+   "place": "fridge",
+   "row": "r-eggs",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "container of cut pineapple",
+   "place": "fridge",
+   "row": "r-fruit-cut",
+   "cut": true,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "bagel or roll",
+   "place": "fridge",
+   "row": "r-bread",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "container of peas",
+   "place": "fridge",
+   "row": "r-veg-cooked",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "packaged lettuce or greens",
+   "place": "fridge",
+   "row": "r-greens",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "block of hard cheese",
+   "place": "fridge",
+   "row": "r-hard-cheese",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "raw fish fillet",
+   "place": "fridge",
+   "row": "r-meat",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "raw meat package",
+   "place": "fridge",
+   "row": "r-meat",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "whole oranges",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "whole limes",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "whole lemons",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "whole red apple",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "snap peas",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "corn on the cob",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "whole cucumber",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "red onion",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "green beans",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "bagged salad greens",
+   "place": "fridge",
+   "row": "r-greens",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "whole tomato",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  }
+ ]
+}

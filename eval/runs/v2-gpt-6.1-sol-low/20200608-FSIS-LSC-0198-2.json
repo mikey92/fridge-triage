@@ -1,0 +1,98 @@
+{
+ "photo": "20200608-FSIS-LSC-0198.jpg",
+ "run": 2,
+ "model": "gpt-6.1-sol",
+ "effort": "low",
+ "seconds": 18.872,
+ "error": null,
+ "items": [
+  {
+   "name": "bottle of Bulgarian probiotic cultured milk",
+   "place": "fridge",
+   "row": "r-milk",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "jug of orange juice",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "partly finished blended coffee drink, possibly containing milk",
+   "place": "fridge",
+   "row": "r-milk",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "squeeze bottle of mayonnaise",
+   "place": "fridge",
+   "row": "r-mayo",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "tub of butter",
+   "place": "fridge",
+   "row": "r-butter",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "white covered container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "jar of creamy pepper dip or cheese spread",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "round covered container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "blue-lidded container with sliced food, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "blue-lidded container of cauliflower or a cauliflower dish",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "container of green peas, preparation unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  }
+ ]
+}

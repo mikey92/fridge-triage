@@ -59,7 +59,7 @@ describe("saving on the device", () => {
     const storage = memory();
     let state = reducer(EMPTY, { type: "outage", patch: { start: new Date(NOW).toISOString(), freezerFill: "full" } });
     state = reducer(state, { type: "add", items: [{ id: "a", name: "milk", place: "fridge", row: "r-milk", cut: null, opened: null,
-      ice: false, sure: true, from: "hand", cleared: false }] });
+      ice: false, sure: true, confirmed: true, from: "hand", cleared: false }] });
     save(state, storage);
     expect(load(storage)).toEqual(state);
   });

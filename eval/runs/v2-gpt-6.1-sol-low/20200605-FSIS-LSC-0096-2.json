@@ -1,0 +1,106 @@
+{
+ "photo": "20200605-FSIS-LSC-0096.jpg",
+ "run": 2,
+ "model": "gpt-6.1-sol",
+ "effort": "low",
+ "seconds": 15.875,
+ "error": null,
+ "items": [
+  {
+   "name": "Red-lidded container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Round blue-lidded container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Rectangular blue-lidded container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Red-lidded jar, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Partly hidden white container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Small blue-lidded container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Half a lemon",
+   "place": "fridge",
+   "row": "r-fruit-cut",
+   "cut": true,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "Container of sliced cucumbers, possibly pickles",
+   "place": "fridge",
+   "row": null,
+   "cut": true,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Partly hidden container beneath the cucumbers, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Container of green peas, preparation unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Covered container beneath the peas, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Wrapped tray of husked corn on the cob",
+   "place": "fridge",
+   "row": "r-veg-cut",
+   "cut": true,
+   "opened": false,
+   "sure": false
+  }
+ ]
+}

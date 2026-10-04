@@ -14,12 +14,12 @@ export type RecognizeResult = { items: RecognizedItem[] } | { error: string };
 
 export const TIMEOUT_MS = 45_000;
 
-export async function recognizePhoto(image: string): Promise<RecognizeResult> {
+export async function recognizePhoto(image: string, place: Place = "fridge"): Promise<RecognizeResult> {
   try {
     const response = await fetch("/api/recognize", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ image }),
+      body: JSON.stringify({ image, place }),
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
     const data = (await response.json().catch(() => ({}))) as { items?: RecognizedItem[]; error?: string };

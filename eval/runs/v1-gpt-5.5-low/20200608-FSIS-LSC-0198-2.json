@@ -1,0 +1,106 @@
+{
+ "photo": "20200608-FSIS-LSC-0198.jpg",
+ "run": 2,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 8.997,
+ "error": null,
+ "items": [
+  {
+   "name": "bottle of orange juice",
+   "place": "fridge",
+   "row": "r-juice",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "bottle of kefir",
+   "place": "fridge",
+   "row": "r-milk",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "can of lemonade",
+   "place": "fridge",
+   "row": "r-juice",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "yogurt parfait cup",
+   "place": "fridge",
+   "row": "r-milk",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "bottle of orange drink or juice",
+   "place": "fridge",
+   "row": "r-juice",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "squeeze bottle of mayonnaise",
+   "place": "fridge",
+   "row": "r-mayo",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "tub of prepared mashed potatoes",
+   "place": "fridge",
+   "row": "r-cooked-starch",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "white foam takeout container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "round white covered container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "covered container with pie slice",
+   "place": "fridge",
+   "row": "r-fruit-pie",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "container of potato salad",
+   "place": "fridge",
+   "row": "r-potato-salad",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "container of peas",
+   "place": "fridge",
+   "row": "r-veg-cooked",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  }
+ ]
+}

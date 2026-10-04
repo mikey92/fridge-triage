@@ -1,0 +1,26 @@
+{
+ "photo": "20200608-FSIS-LSC-0234.jpg",
+ "run": 2,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 3.116,
+ "error": null,
+ "items": [
+  {
+   "name": "whole raw chicken",
+   "place": "freezer",
+   "row": "f-meat",
+   "cut": null,
+   "opened": false,
+   "sure": true
+  },
+  {
+   "name": "bag of raw meat, possibly ribs or bones",
+   "place": "freezer",
+   "row": "f-meat",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  }
+ ]
+}

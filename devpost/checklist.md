@@ -92,3 +92,23 @@ Activity mode: recap; map checked in Chrome with scripts disabled.
 
 ## Revisions
 
+- [x] **R1. Every verdict checked line by line against the chart**
+  Becomes usable: Verdicts that match FoodSafety.gov in the cases the first version got wrong or overstated: a freezer hold time is counted only when the freezer was full or half full with the doors closed (otherwise each item says to check for ice crystals); a freezer still at 0°F keeps; a fridge thermometer only ever makes a call stricter; opened mayonnaise is tossed past 8 hours above 50°F; outage times that don't add up give Check, never a verdict; the app's partner rows say "not a chart row". Fridge photo / Freezer photo choice, °F/°C entry with range checks, saved state that survives bad or blocked storage, keyboard focus kept through fixes.
+  Why now: A food-safety app has to be right where the chart is subtle; a review of the first version found calls the chart doesn't support.
+  Build: `src/rules.ts` rewritten, `src/chart.ts` words and moves corrected, `src/store.ts` validation, outage form checks, error boundary.
+  Verify (mechanical): `npm test` (rules, clock, storage), `npm run e2e`, `npm run typecheck`.
+  Commit: `Check every verdict against the chart, work offline, and measure the photo reading`
+
+- [x] **R2. Opens with no connection**
+  Becomes usable: After one visit the app opens offline (home-screen install, service worker): the clock, hand entry, verdicts and loss record work during the outage itself; only photo reading needs the network.
+  Why now: The moment the app is needed is the moment Wi-Fi is down.
+  Build: `public/sw.js`, web manifest and icons, `scripts/offline-check.mjs`.
+  Verify (mechanical): `node scripts/offline-check.mjs` loads the live site, cuts the network, reloads, and runs the hand-entry journey.
+  Commit: same as R1
+
+- [x] **R3. Photo reading measured, and a photo never keeps food on its own**
+  Becomes usable: Every item from a photo that the chart would keep or refreeze shows as Confirm until the person taps Yes or fixes it; cheeses and butter carry a look-alike warning; the person says which appliance each photo shows.
+  Why now: Measuring the first version on 13 hand-labeled USDA photos showed it told people to keep 14 of 76 toss-worthy items (raw chicken read as freezer food, guesses it marked unsure).
+  Build: `eval/` (photos, labels, judgments, runs, `score.ts`, `first-version.sh`, `EVAL.md`), rewritten recognizer prompt, `confirmed` on items, the Confirm group in the verdict list.
+  Verify (mechanical): `npx tsx eval/score.ts eval/runs/v2-gpt-5.5-low` (and `SET=held-out`): 0 of 84 toss-worthy answers shown as Keep; `sh eval/first-version.sh` reproduces the first version's 14 of 76.
+  Commit: same as R1

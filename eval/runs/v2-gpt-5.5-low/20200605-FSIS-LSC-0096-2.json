@@ -1,0 +1,82 @@
+{
+ "photo": "20200605-FSIS-LSC-0096.jpg",
+ "run": 2,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 10.851,
+ "error": null,
+ "items": [
+  {
+   "name": "packaged corn on the cob",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": false,
+   "sure": true
+  },
+  {
+   "name": "cut lemon half",
+   "place": "fridge",
+   "row": "r-fruit-cut",
+   "cut": true,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "container of peas",
+   "place": "fridge",
+   "row": "r-veg-cooked",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "container of sliced pickles",
+   "place": "fridge",
+   "row": "r-condiments",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "covered container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "covered container with mixed vegetables, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "small tub, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "small covered container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "partly hidden packaged food, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  }
+ ]
+}

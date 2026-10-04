@@ -25,8 +25,9 @@ export default {
     if (!success) return fail(429, "Too many photos in a minute. Wait a moment, or add items by hand.");
 
     let image: unknown;
+    let shows: unknown;
     try {
-      image = ((await request.json()) as { image?: unknown }).image;
+      ({ image, place: shows } = (await request.json()) as { image?: unknown; place?: unknown });
     } catch {
       return fail(400, "That wasn't a photo.");
     }
@@ -35,7 +36,7 @@ export default {
     }
 
     try {
-      return Response.json({ items: await recognize(image, env) });
+      return Response.json({ items: await recognize(image, env, shows === "freezer" ? "freezer" : "fridge") });
     } catch (error) {
       console.error("recognize failed", error instanceof Error ? error.message : error);
       const slow = error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError");

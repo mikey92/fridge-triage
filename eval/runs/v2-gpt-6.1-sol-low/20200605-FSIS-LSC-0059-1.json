@@ -1,0 +1,306 @@
+{
+ "photo": "20200605-FSIS-LSC-0059.jpg",
+ "run": 1,
+ "model": "gpt-6.1-sol",
+ "effort": "low",
+ "seconds": 39.284,
+ "error": null,
+ "items": [
+  {
+   "name": "Bottle of orange juice",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "White bottle with purple cap, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Small pink bottle, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Green bottle, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Partly hidden teal carton, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Green-wrapped package, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Blue-wrapped package, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Small red-lidded container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Large red-lidded tub, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Jar with red lid, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Eggs in clear holder",
+   "place": "fridge",
+   "row": "r-eggs",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "Container of cut pineapple",
+   "place": "fridge",
+   "row": "r-fruit-cut",
+   "cut": true,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "Bag of bread rolls",
+   "place": "fridge",
+   "row": "r-bread",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Container of green peas",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Small covered container behind peas, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Dark-lidded container behind pineapple, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "White tub with black lid, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Orange carton, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Small red carton, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Clamshell of green peppers",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Clamshell beneath peppers, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Wrapped whole raw chicken",
+   "place": "fridge",
+   "row": "r-meat",
+   "cut": null,
+   "opened": false,
+   "sure": false
+  },
+  {
+   "name": "Wrapped meat in left drawer",
+   "place": "fridge",
+   "row": "r-meat",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Second wrapped meat package in left drawer",
+   "place": "fridge",
+   "row": "r-meat",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Wrapped sausage in left drawer",
+   "place": "fridge",
+   "row": "r-lunchmeat",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Partly hidden container in left drawer, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Oranges",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "Lemons",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "Limes",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Red apple",
+   "place": "fridge",
+   "row": "r-fruit-whole",
+   "cut": false,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Bag of pea pods",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Package of husked corn on the cob",
+   "place": "fridge",
+   "row": "r-veg-cut",
+   "cut": true,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "Cucumber in bottom drawer",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Red onion",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "Bag of green beans",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Bag of salad greens",
+   "place": "fridge",
+   "row": "r-greens",
+   "cut": true,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "Tomato",
+   "place": "fridge",
+   "row": "r-veg-whole",
+   "cut": false,
+   "opened": null,
+   "sure": true
+  }
+ ]
+}

@@ -7,8 +7,8 @@ const HOUR = 3_600_000;
 export type Clock = {
   outMs: number; // how long the power has been (or was) out
   fridgeLeftMs: number; // negative once past the 4 hours
-  freezerLeftMs: number;
-  freezerHold: number; // hours
+  freezerLeftMs: number | null; // null when the freezer is less than half full: no hold time to count down
+  freezerHold: number | null; // hours
   running: boolean; // the power is still out
 };
 
@@ -16,12 +16,14 @@ export function coldClock(outage: Outage, now: number): Clock | null {
   if (!outage.start) return null;
   const start = Date.parse(outage.start);
   const end = outage.end ? Date.parse(outage.end) : now;
-  const outMs = Math.max(0, end - start);
+  // Times that don't add up get no clock; the screens say so instead (see outageHours in rules.ts).
+  if (!Number.isFinite(start) || !Number.isFinite(end) || end < start || start > now + 5 * 60_000) return null;
+  const outMs = end - start;
   const freezerHold = freezerHoldHours(outage.freezerFill);
   return {
     outMs,
     fridgeLeftMs: FRIDGE_HOURS_DOOR_CLOSED * HOUR - outMs,
-    freezerLeftMs: freezerHold * HOUR - outMs,
+    freezerLeftMs: freezerHold === null ? null : freezerHold * HOUR - outMs,
     freezerHold,
     running: !outage.end,
   };
@@ -40,6 +42,7 @@ export function hms(ms: number): string {
 export function toLocalInput(iso: string | null): string {
   if (!iso) return "";
   const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return "";
   const local = new Date(date.getTime() - date.getTimezoneOffset() * 60_000);
   return local.toISOString().slice(0, 16);
 }

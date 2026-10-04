@@ -1,0 +1,26 @@
+{
+ "photo": "20200608-FSIS-LSC-0234.jpg",
+ "run": 1,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 2.81,
+ "error": null,
+ "items": [
+  {
+   "name": "raw whole chicken or turkey",
+   "place": "fridge",
+   "row": "r-meat",
+   "cut": null,
+   "opened": false,
+   "sure": false
+  },
+  {
+   "name": "bag of raw meat or poultry pieces",
+   "place": "fridge",
+   "row": "r-meat",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  }
+ ]
+}

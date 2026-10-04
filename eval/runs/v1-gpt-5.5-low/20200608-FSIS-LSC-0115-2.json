@@ -1,0 +1,50 @@
+{
+ "photo": "20200608-FSIS-LSC-0115.jpg",
+ "run": 2,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 4.994,
+ "error": null,
+ "items": [
+  {
+   "name": "jar of Miracle Whip dressing",
+   "place": "fridge",
+   "row": "r-mayo",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "bottle of orange juice",
+   "place": "fridge",
+   "row": "r-juice",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "plastic cup of smoothie or milkshake",
+   "place": "fridge",
+   "row": "r-milk",
+   "cut": null,
+   "opened": true,
+   "sure": false
+  },
+  {
+   "name": "covered container, contents unclear",
+   "place": "fridge",
+   "row": null,
+   "cut": null,
+   "opened": null,
+   "sure": false
+  },
+  {
+   "name": "covered bowl of soup or stew",
+   "place": "fridge",
+   "row": "r-casserole",
+   "cut": null,
+   "opened": null,
+   "sure": false
+  }
+ ]
+}

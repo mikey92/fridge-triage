@@ -1,0 +1,50 @@
+{
+ "photo": "20200608-FSIS-LSC-0230.jpg",
+ "run": 2,
+ "model": "gpt-5.5",
+ "effort": "low",
+ "seconds": 4.457,
+ "error": null,
+ "items": [
+  {
+   "name": "bag of shredded cheese",
+   "place": "fridge",
+   "row": "r-shredded-cheese",
+   "cut": null,
+   "opened": false,
+   "sure": true
+  },
+  {
+   "name": "block of cheddar cheese",
+   "place": "fridge",
+   "row": "r-hard-cheese",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "block of Monterey Jack cheese",
+   "place": "fridge",
+   "row": "r-soft-cheese",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  },
+  {
+   "name": "package of processed cheese slices",
+   "place": "fridge",
+   "row": "r-processed-cheese",
+   "cut": null,
+   "opened": true,
+   "sure": true
+  },
+  {
+   "name": "fresh mozzarella ball",
+   "place": "fridge",
+   "row": "r-soft-cheese",
+   "cut": null,
+   "opened": null,
+   "sure": true
+  }
+ ]
+}

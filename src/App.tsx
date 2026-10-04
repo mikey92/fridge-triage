@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { Place, Row } from "./chart";
 import { ColdClock } from "./components/ColdClock";
 import { LossRecord } from "./components/LossRecord";
-import { OutageForm } from "./components/OutageForm";
+import { OutageForm, outageTimeProblem } from "./components/OutageForm";
 import { PhotoSlots } from "./components/PhotoSlots";
 import { RowPicker } from "./components/RowPicker";
 import { Verdicts } from "./components/Verdicts";
@@ -60,7 +60,8 @@ export function App() {
           <section>
             <h1 tabIndex={-1}>Outage details</h1>
             <OutageForm outage={state.outage} now={now} onChange={(patch) => dispatch({ type: "outage", patch })} />
-            <button type="button" className="primary" disabled={!state.outage.start}
+            <button type="button" className="primary"
+              disabled={!state.outage.start || Object.keys(outageTimeProblem(state.outage, now)).length > 0}
               onClick={() => go(state.items.length ? "results" : "check")}>
               {state.items.length ? "See what to do" : "Next: check my food"}
             </button>
@@ -95,7 +96,10 @@ function Home({ state, dispatch, go }: ScreenProps) {
           <button type="button" className="primary" onClick={() => dispatch({ type: "outage", patch: { start: new Date().toISOString(), end: null } })}>
             The power is out
           </button>
-          <button type="button" className="secondary" onClick={() => go("outage")}>The power is back: check my food</button>
+          <button type="button" className="secondary" onClick={() => {
+            dispatch({ type: "outage", patch: { end: new Date().toISOString() } });
+            go("outage");
+          }}>The power is back: check my food</button>
         </div>
         <ol className="steps">
           <li><strong>Start the cold clock</strong> when the power goes out: the fridge keeps food safe for about 4 hours, the freezer 24 to 48.</li>
@@ -103,6 +107,7 @@ function Home({ state, dispatch, go }: ScreenProps) {
           <li><strong>Get Toss, Check, Refreeze or Keep</strong> for every item, with the chart row it comes from, and a dated record of what you threw out.</li>
         </ol>
         <p className="muted small">The AI only names the food. Every decision comes from the FoodSafety.gov power-outage charts.</p>
+        <p className="muted small">Add Fridge Triage to your home screen: once opened, it works with no connection, except for reading photos.</p>
       </section>
     );
   }
@@ -173,7 +178,9 @@ function Results({ state, dispatch, go, now }: ScreenProps & { now: number }) {
     <section>
       <h1 tabIndex={-1}>What to do</h1>
       <p className="outage-line">
-        {hours === null ? "No outage times yet. " : `Power ${state.outage.end ? "was" : "has been"} out ${formatHours(hours)}. `}
+        {hours !== null
+          ? `Power ${state.outage.end ? "was" : "has been"} out ${formatHours(hours)}. `
+          : state.outage.start ? "The outage times don't add up. " : "No outage times yet. "}
         <a href="#/outage">Change</a>
       </p>
       <Verdicts items={state.items} outage={state.outage} now={now}
