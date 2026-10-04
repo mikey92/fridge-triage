@@ -154,3 +154,54 @@ button.primary {
 .line-row { margin: 4px 0 0; font-size: 0.85rem; color: var(--muted); }
 
 .source { font-size: 0.85rem; color: var(--muted); }
+
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 0 12px; }
+.brand { font-weight: 800; font-size: 1.15rem; text-decoration: none; letter-spacing: -0.01em; }
+main h1 { font-size: 1.7rem; line-height: 1.2; margin: 8px 0 12px; letter-spacing: -0.01em; }
+main h1:focus { outline: none; }
+.lead { font-size: 1.05rem; margin: 0 0 20px; }
+
+button.link {
+  background: none;
+  border: 0;
+  min-height: 44px;
+  padding: 8px 4px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+button.secondary { width: 100%; font-weight: 600; }
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+.stack { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+main > section > button.primary, main > section > button.secondary { margin-top: 8px; }
+
+.mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+
+.clock { margin: 0 0 12px; }
+.clock-since { margin: 0 0 12px; color: var(--muted); }
+.clock-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.clock-card { background: var(--card); border: 1px solid var(--line); border-top: 6px solid var(--keep); border-radius: 12px; padding: 12px; }
+.clock-card.over { border-top-color: var(--toss); }
+.clock-title { margin: 0; font-weight: 700; }
+.clock-time { margin: 4px 0; font-size: 1.6rem; font-weight: 800; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+.clock-card.over .clock-time { color: var(--toss); font-family: inherit; }
+.clock-note { margin: 0; font-size: 0.85rem; color: var(--muted); }
+
+.tips { margin: 12px 0; padding-left: 1.2em; color: var(--muted); }
+.tips li { margin: 4px 0; }
+
+.form { margin: 0 0 16px; }
+.field { margin: 0 0 20px; border: 0; padding: 0; }
+fieldset.field { min-width: 0; }
+legend { font-weight: 600; margin: 0 0 8px; padding: 0; }
+.check-row { display: flex; align-items: center; gap: 10px; font-weight: 600; min-height: 44px; }
+.check-row input { width: 24px; height: 24px; flex: none; }
+.hint { margin: 6px 0 0; font-size: 0.9rem; color: var(--muted); }
+.error { margin: 6px 0 0; color: var(--toss); font-weight: 600; }
+details.field summary { cursor: pointer; font-weight: 600; min-height: 44px; display: flex; align-items: center; }
+.temp { margin: 12px 0 0; }
+input[aria-invalid="true"] { border-color: var(--toss); }
+
+.notice { background: var(--card); border: 1px solid var(--check); border-radius: 10px; padding: 10px 12px; }
+.added { margin: 12px 0 0; }
+.outage-line { margin: 0 0 8px; color: var(--muted); }

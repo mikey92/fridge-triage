@@ -19,7 +19,7 @@ Build mode: fast (the entrant delegated the build and the hands-on checks to the
   Learner check: Open the app, set the outage to 7½ hours, add shredded cheese, a cheddar block, milk and ketchup, and see which go where and why.
   Commit: `Decide keep or toss from the FoodSafety.gov charts`
 
-- [ ] **2. The cold clock runs during an outage and remembers it**
+- [x] **2. The cold clock runs during an outage and remembers it**
   Becomes usable: Tap "The power is out", see the fridge and freezer countdowns, close the tab, reopen, and the clock and the item list are still there; tap "The power is back" and the verdicts use the real outage times.
   Why now: The outage facts drive every verdict, and persistence is the first place the data model can be wrong.
   PRD ref: `prd.md > Cold clock`, `prd.md > The Core Journey` (steps 1–3), `prd.md > States and Boundaries`

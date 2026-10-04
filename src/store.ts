@@ -1,9 +1,11 @@
-// App state: the outage and the item list, in one reducer.
-import { useReducer } from "react";
+// App state: the outage and the item list, in one reducer, saved on this device so a closed tab loses nothing.
+import { useEffect, useReducer } from "react";
 import type { Place } from "./chart";
 import type { Item, Outage } from "./rules";
 
 export type State = { outage: Outage; items: Item[] };
+
+export const STORAGE_KEY = "fridge-triage:v1";
 
 export const EMPTY_OUTAGE: Outage = {
   start: null,
@@ -45,6 +47,30 @@ export function newItem(fields: { name: string; place: Place; row: string | null
     ...fields };
 }
 
-export function useAppState(initial: State = EMPTY) {
-  return useReducer(reducer, initial);
+/** Saved state, or empty when there is none or it doesn't look like ours. */
+export function load(storage: Pick<Storage, "getItem"> | undefined = globalThis.localStorage): State {
+  try {
+    const saved = JSON.parse(storage?.getItem(STORAGE_KEY) ?? "null");
+    if (saved && typeof saved === "object" && Array.isArray(saved.items) && saved.outage && typeof saved.outage === "object") {
+      return { outage: { ...EMPTY_OUTAGE, ...saved.outage }, items: saved.items.filter((item: Item) => item && typeof item.id === "string") };
+    }
+  } catch {
+    // unreadable or blocked storage: start fresh
+  }
+  return EMPTY;
+}
+
+export function save(state: State, storage: Pick<Storage, "setItem" | "removeItem"> | undefined = globalThis.localStorage) {
+  try {
+    if (state === EMPTY) storage?.removeItem(STORAGE_KEY);
+    else storage?.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    // private mode or full storage: the app still works for this visit
+  }
+}
+
+export function useAppState() {
+  const [state, dispatch] = useReducer(reducer, undefined, () => load());
+  useEffect(() => save(state), [state]);
+  return [state, dispatch] as const;
 }
