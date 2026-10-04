@@ -71,24 +71,24 @@ Build mode: fast (the entrant delegated the build and the hands-on checks to the
 
 ## Hands-on Checkpoints
 
-- [ ] Early usable behavior explored — after slice 3 (the first real photo through the whole loop)
-- [ ] Final kick-the-tires exploration and feedback completed
+- [x] Early usable behavior explored — after slice 3 (the first real photo through the whole loop). Run by the agent on the entrant's behalf, since the entrant delegated hands-on checks: the USDA sample photo gave 26 items in about 17 s; feedback acted on: the photo button turns secondary once a photo is in, so "See what to do" is the one primary action.
+- [x] Final kick-the-tires exploration and feedback completed — by the agent on the deployed app (phone-sized Chrome, dark and light, desktop width): photo → verdicts → fix → loss record → print preview; recognizer-off fallback.
 
 ## Final Review
 
-- [ ] Final review complete — feedback resolved and learner confirms ready to ship
+- [x] Final review complete — no open issues from the agent's review; the entrant delegated the ship decision to the agent.
 
 ## Code Tour and App Map
 
-- [ ] Learning activity complete — guided route, focused alternative, prior practice connected, or brief recap
-- [ ] Optional edit and transfer reflection addressed — offered/declined/already covered/not applicable as appropriate
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
+- [x] Learning activity complete — brief recap (the entrant delegated the build; no live tour)
+- [x] Optional edit and transfer reflection addressed — not applicable (delegated build)
+- [x] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
 
-Activity and evidence:
-Route and stops:
-Edit outcome:
-Reflection:
-Activity mode:
+Activity and evidence: recap of the spec's one uncertainty (shredded vs block cheese) and its result in slice 3; rules covered by `tests/rules.test.ts` (every row of both charts).
+Route and stops: reference route in the map only — `src/chart.ts` ("r-shredded-cheese", "r-hard-cheese") → `src/rules.ts` `verdict()`/`fridgeVerdict()` → `src/components/Verdicts.tsx` `VerdictLine`.
+Edit outcome: not applicable.
+Reflection: not offered (delegated build).
+Activity mode: recap; map checked in Chrome with scripts disabled.
 
 ## Revisions
 

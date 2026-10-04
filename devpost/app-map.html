@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fridge Triage — App Map</title>
+<style>
+  :root { --bg: #f7f8fa; --card: #fff; --line: #d6dbe2; --text: #16181c; --muted: #545b66; --toss: #c62828; --keep: #1b7a46; --accent: #1f5fa8; color-scheme: light dark; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #0e1013; --card: #171a1f; --line: #2a2f37; --text: #eef0f3; --muted: #a7adb7; --toss: #ff6b6b; --keep: #4cd38a; --accent: #6cb6ff; } }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 17px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { margin: 0 0 4px; font-size: 1.7rem; }
+  h2 { margin: 32px 0 8px; font-size: 1.2rem; }
+  p.lead { color: var(--muted); margin: 0 0 16px; }
+  code { font: 0.9em ui-monospace, Menlo, Consolas, monospace; background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 0 0 12px; }
+  ol.route > li { margin: 0 0 12px; }
+  svg { width: 100%; height: auto; display: block; }
+  svg text { fill: var(--text); font: 13px system-ui, sans-serif; }
+  svg .box { fill: var(--card); stroke: var(--line); stroke-width: 1.5; }
+  svg .ai { stroke: var(--accent); stroke-width: 2; }
+  svg .rule { stroke: var(--keep); stroke-width: 2; }
+  svg .arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#head); }
+  svg .small { fill: var(--muted); font-size: 11px; }
+  dl dt { font-weight: 700; margin-top: 10px; }
+  dl dd { margin: 2px 0 0; }
+  .muted { color: var(--muted); }
+  details summary { cursor: pointer; font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Fridge Triage — App Map</h1>
+  <p class="lead">A snapshot of how the app is put together, made from commit <code>18bd476</code>. The code can drift from this map; the file paths and names below are the place to start looking.</p>
+
+  <h2>What it is, in four pieces</h2>
+  <div class="card">
+    <p>After a power outage, you photograph your fridge and freezer and get Toss, Check, Refreeze or Keep for each item, decided by the FoodSafety.gov power-outage charts.</p>
+    <ul>
+      <li><strong>The chart</strong> (<code>src/chart.ts</code>): both FoodSafety.gov charts as data, word for word.</li>
+      <li><strong>The rules</strong> (<code>src/rules.ts</code>): turn a chart row and the outage facts into a verdict. No AI here.</li>
+      <li><strong>The recognizer</strong> (<code>worker/recognize.ts</code>): the only server code. Sends a photo to a vision model, which names the food and picks a chart row.</li>
+      <li><strong>The page</strong> (<code>src/App.tsx</code> and <code>src/components/</code>): the cold clock, the photo slots, the item list with fixes, the verdicts and the loss record. State is saved on the device by <code>src/store.ts</code>.</li>
+    </ul>
+  </div>
+
+  <h2>One action, followed through the code</h2>
+  <p class="muted">“Add a photo of the fridge and see the shredded cheese tossed and the cheddar kept.”</p>
+  <div class="card">
+    <svg viewBox="0 0 720 300" role="img" aria-labelledby="diagram-title diagram-desc">
+      <title id="diagram-title">From a photo to a verdict</title>
+      <desc id="diagram-desc">The photo goes from PhotoSlots to recognizePhoto, to the Worker's recognize function and the vision model, back as items into the store; verdict() in rules.ts reads each item's chart row and the outage, and Verdicts shows the result.</desc>
+      <defs><marker id="head" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker></defs>
+      <rect class="box" x="10" y="20" width="160" height="58" rx="8"/><text x="22" y="44">Add a photo</text><text class="small" x="22" y="62">PhotoSlots · read()</text>
+      <rect class="box" x="200" y="20" width="160" height="58" rx="8"/><text x="212" y="44">Shrink + send</text><text class="small" x="212" y="62">photos.ts · recognize.ts</text>
+      <rect class="box ai" x="390" y="20" width="150" height="58" rx="8"/><text x="402" y="44">Worker</text><text class="small" x="402" y="62">recognize() · cleanItems()</text>
+      <rect class="box ai" x="570" y="20" width="140" height="58" rx="8"/><text x="582" y="44">Vision model</text><text class="small" x="582" y="62">names food, picks a row</text>
+      <rect class="box" x="390" y="130" width="150" height="58" rx="8"/><text x="402" y="154">Store</text><text class="small" x="402" y="172">store.ts · reducer "add"</text>
+      <rect class="box rule" x="200" y="130" width="160" height="58" rx="8"/><text x="212" y="154">Rules + chart</text><text class="small" x="212" y="172">rules.ts · verdict()</text>
+      <rect class="box" x="10" y="130" width="160" height="58" rx="8"/><text x="22" y="154">Verdicts</text><text class="small" x="22" y="172">Verdicts.tsx · VerdictLine</text>
+      <rect class="box" x="10" y="230" width="350" height="50" rx="8"/><text x="22" y="252">Toss: bag of shredded cheese · Keep: block of cheddar</text><text class="small" x="22" y="270">each with its chart row and the condition that applied</text>
+      <rect class="box" x="390" y="230" width="150" height="50" rx="8"/><text x="402" y="252">localStorage</text><text class="small" x="402" y="270">fridge-triage:v1</text>
+      <path class="arrow" d="M170 49 H196" color="currentColor"/>
+      <path class="arrow" d="M360 49 H386"/>
+      <path class="arrow" d="M540 40 H566"/>
+      <path class="arrow" d="M566 62 H544"/>
+      <path class="arrow" d="M465 78 V126"/>
+      <path class="arrow" d="M390 159 H364"/>
+      <path class="arrow" d="M200 159 H174"/>
+      <path class="arrow" d="M90 188 V226"/>
+      <path class="arrow" d="M465 188 V226"/>
+    </svg>
+  </div>
+
+  <h2>A three-stop route (reference)</h2>
+  <p class="muted">A reference route through the part that decides; it was not walked through live.</p>
+  <ol class="route">
+    <li class="card"><strong><code>src/chart.ts</code> — search for <code>"r-shredded-cheese"</code> and <code>"r-hard-cheese"</code>.</strong><br>
+      Two rows from the refrigerated chart: “Shredded cheeses” with the rule <code>"discard"</code>, and “Hard cheeses: Cheddar, Colby, Swiss, Parmesan, provolone, Romano” with <code>"keep"</code>. The model only ever returns one of these ids.</li>
+    <li class="card"><strong><code>src/rules.ts</code> — <code>verdict()</code>, then <code>fridgeVerdict()</code>.</strong><br>
+      <code>verdict()</code> finds the item's row (following cut/opened partners in <code>effectiveRow()</code>) and the outage length. <code>fridgeVerdict()</code> keeps everything for the first 4 hours with the door closed (<code>FRIDGE_HOURS_DOOR_CLOSED</code>), then reads the row's rule: <code>"discard"</code> becomes Toss.</li>
+    <li class="card"><strong><code>src/components/Verdicts.tsx</code> — <code>VerdictLine</code>.</strong><br>
+      Shows the item's name, the reason from the rule, and the chart row it came from. The “Fix” button opens <code>ItemEditor</code>, and any change re-runs <code>verdict()</code>.</li>
+  </ol>
+
+  <h2>To change this, start here</h2>
+  <dl class="card">
+    <dt>FoodSafety.gov updates its charts</dt><dd><code>src/chart.ts</code> (rows, <code>CHART_REVIEWED</code>), then the row counts in <code>tests/rules.test.ts</code>.</dd>
+    <dt>The 4-hour or 24/48-hour times</dt><dd><code>src/rules.ts</code>: <code>FRIDGE_HOURS_DOOR_CLOSED</code>, <code>freezerHoldHours()</code>.</dd>
+    <dt>What the model is asked, or which model</dt><dd><code>worker/recognize.ts</code>: <code>INSTRUCTIONS</code>, <code>SCHEMA</code>; the model name is <code>MODEL</code> in <code>wrangler.jsonc</code>.</dd>
+    <dt>Colours, type, dark and print styles</dt><dd><code>src/styles.css</code>: the variables at the top of the file and the <code>@media print</code> block.</dd>
+    <dt>The loss record's wording</dt><dd><code>src/components/LossRecord.tsx</code>.</dd>
+  </dl>
+
+  <h2>A practice to reuse</h2>
+  <div class="card">
+    <p><strong>Let the model recognize; let a vetted table decide.</strong> The model's answer is only an index into <code>src/chart.ts</code>: <code>cleanItems()</code> in <code>worker/recognize.ts</code> drops any row id that isn't in the chart, and an item without a row is always Check, never Keep. Because the decision is a pure function over a fixed table, <code>tests/rules.test.ts</code> can check every row of both charts in both columns.</p>
+    <p>On another project where an AI's output drives a decision with real consequences (prices, eligibility, safety), the same shape works: ask the model for a choice from a closed list, validate it, and keep the decision in code you can test exhaustively.</p>
+  </div>
+
+  <h2>Run it again</h2>
+  <div class="card">
+    <p><code>npm install</code>, then <code>npm run dev</code> and open <code>http://localhost:5173</code>. <code>npm test</code> runs the rule, clock, storage and recognizer checks; <code>npm run e2e</code> runs the whole journey in Chrome. Photo recognition needs <code>RELAY_URL</code> and <code>RELAY_KEY</code> in <code>.dev.vars</code> (see <code>.dev.vars.example</code>); without them the app runs in manual mode.</p>
+    <details><summary>Where the planning documents are</summary>
+      <p><code>devpost/scope.md</code>, <code>devpost/prd.md</code>, <code>devpost/spec.md</code>, <code>devpost/checklist.md</code>.</p>
+    </details>
+  </div>
+</main>
+</body>
+</html>
