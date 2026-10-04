@@ -112,3 +112,9 @@ Activity mode: recap; map checked in Chrome with scripts disabled.
   Build: `eval/` (photos, labels, judgments, runs, `score.ts`, `first-version.sh`, `EVAL.md`), rewritten recognizer prompt, `confirmed` on items, the Confirm group in the verdict list.
   Verify (mechanical): `npx tsx eval/score.ts eval/runs/v2-gpt-5.5-low` (and `SET=held-out`): 0 of 84 toss-worthy answers shown as Keep; `sh eval/first-version.sh` reproduces the first version's 14 of 76.
   Commit: same as R1
+- [x] **R4. Second review: the confirm step names the matched row, one set of time rules, accessibility checked with a screen reader**
+  Becomes usable: Confirm says which chart row the AI matched ("It matched this to “Fresh fruits, uncut”"), so a wrong match reads as wrong; the cold clock and the verdicts agree on opened doors and thermometer readings; the loss record includes Check items ticked as thrown out; the app works with VoiceOver and the keyboard alone.
+  Why now: Independent code reviews and a real VoiceOver run found the confirm text naming the AI's guess, a clock that ignored opened doors, the 6-hour freezer rule skipped with a reading, lenient defaults for damaged saved data, a date field wiped by one Backspace, photo results lost when leaving the screen, and a countdown re-read every second.
+  Build: `outageSpan()` and `fridgeSafeHours()` shared by rules, clock and form; `matchDoubt()`; stricter `load()`; `DateTimeInput`; service worker that saves a page's files before the page; `scripts/a11y-check.mjs`, `scripts/keyboard-check.mjs`, `scripts/voiceover/`.
+  Verify (mechanical): `npm test` (63 tests), `npm run e2e` (3 tests), `node scripts/a11y-check.mjs` (no violations), `node scripts/keyboard-check.mjs` ("keyboard journey ok"), `node scripts/offline-check.mjs` on the live site.
+  Commit: 6495862

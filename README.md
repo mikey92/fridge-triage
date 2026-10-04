@@ -48,7 +48,7 @@ The first version read raw chicken in the meat drawer as freezer food and truste
 
 Someone sorting a fridge after an outage may be doing it by flashlight, on a phone, or with a screen reader. Checked with:
 
-- **axe-core** on 10 screens in dark and light mode (`node scripts/a11y-check.mjs`): no violations. **Lighthouse** accessibility: 100.
+- **axe-core** on 10 screens in dark and light mode (`node scripts/a11y-check.mjs`): no violations. **Lighthouse** on the live site: 100 for accessibility, performance, best practices and SEO.
 - **Keyboard only** (`node scripts/keyboard-check.mjs`): the whole journey with Tab, Enter and Space, checking where focus lands after every screen change and that every control shows a focus ring.
 - **VoiceOver** on macOS with Chrome, driven by its own keys, with what it said read back from its caption panel (`scripts/voiceover/`).
 
