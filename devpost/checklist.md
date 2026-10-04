@@ -59,7 +59,7 @@ Build mode: fast (the entrant delegated the build and the hands-on checks to the
   Learner check: Open the record and use the browser's print preview.
   Commit: `Add the printable loss record`
 
-- [ ] **6. Anyone can try it: deployed, tested end to end, documented**
+- [x] **6. Anyone can try it: deployed, tested end to end, documented**
   Becomes usable: The app at https://fridge-triage.mikey9220.workers.dev, a README that explains how to run it, and one end-to-end test of the whole journey.
   Why now: Judges need a link and a video; the end-to-end test guards the demo path.
   PRD ref: `prd.md > The Core Journey`, `prd.md > States and Boundaries`

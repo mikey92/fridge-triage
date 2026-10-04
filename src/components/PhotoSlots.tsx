@@ -61,7 +61,7 @@ export function PhotoSlots({ onItems }: { onItems: (items: RecognizedItem[]) => 
           event.target.value = "";
           if (file) void read(file);
         }} />
-      <button type="button" className="primary" disabled={full} onClick={() => input.current?.click()}>
+      <button type="button" className={slots.length ? "secondary" : "primary"} disabled={full} onClick={() => input.current?.click()}>
         {slots.length ? "Add another photo" : "Take or choose a photo"}
       </button>
       <p className="hint">
