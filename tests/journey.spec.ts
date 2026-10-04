@@ -30,7 +30,8 @@ test("an outage, a photo, verdicts from the chart, a fix, and the loss record", 
   await page.getByRole("button", { name: "The power is back" }).click();
 
   await page.getByRole("button", { name: /Try a sample fridge/ }).click();
-  await expect(page.getByText("Found 6 items")).toBeVisible();
+  await expect(page.locator(".photo-message")).toHaveText("Found 6 items");
+  await expect(page.getByRole("status")).toHaveText("Found 6 items."); // what a screen reader hears
   await page.getByRole("button", { name: /See what to do with 6 items/ }).click();
 
   await expect(section(page, "carton of milk")).toHaveText("Toss");
@@ -41,9 +42,10 @@ test("an outage, a photo, verdicts from the chart, a fix, and the loss record", 
   await expect(section(page, "block of cheddar")).toHaveText("Confirm");
   await expect(section(page, "tub of ice cream")).toHaveText("Confirm");
   await expect(page.getByText("Chart: “Shredded cheeses”", { exact: false })).toBeVisible();
-  await page.getByRole("button", { name: "Yes, “block of cheddar” is right" }).click();
+  // The Yes button names the chart row the AI matched, not only the AI's name for the item.
+  await page.getByRole("button", { name: "Yes, “block of cheddar” is “Hard cheeses: Cheddar, Colby, Swiss, Parmesan, provolone, Romano”" }).click();
   await expect(section(page, "block of cheddar")).toHaveText("Keep");
-  await expect(page.getByRole("button", { name: "Yes, “tub of ice cream” is right" })).toBeFocused();
+  await expect(page.getByRole("button", { name: /^Yes, “tub of ice cream” is “Ice cream/ })).toBeFocused();
 
   const melon = page.locator(".line").filter({ has: page.getByText("container of cut melon", { exact: true }) });
   await melon.getByRole("button", { name: "Fix" }).click();
@@ -53,15 +55,40 @@ test("an outage, a photo, verdicts from the chart, a fix, and the loss record", 
     .locator(".editor").getByRole("button", { name: "Yes, that's right" }).click();
   await expect(section(page, "container of cut melon")).toHaveText("Keep");
 
+  // A Check item the person looked at and threw out goes on the loss record too.
+  await page.getByRole("checkbox", { name: "covered container, contents unclear (tick when thrown out)" }).check();
+
   await page.getByRole("button", { name: "Save loss record" }).click();
   const rows = page.locator(".record-table tbody tr");
-  await expect(rows).toHaveCount(2);
+  await expect(rows).toHaveCount(3);
   await expect(rows.nth(0)).toContainText("carton of milk");
   await expect(rows.nth(1)).toContainText("bag of shredded cheese");
+  await expect(rows.nth(2)).toContainText("covered container, contents unclear");
+  await expect(rows.nth(2)).toContainText("checked, thrown out");
   await expect(page.locator(".record")).toContainText(/7 h 3\d min/);
 
   await page.reload();
-  await expect(page.locator(".record-table tbody tr")).toHaveCount(2);
+  await expect(page.locator(".record-table tbody tr")).toHaveCount(3);
+});
+
+test("a photo still being read when the person moves on lands on the list", async ({ page }) => {
+  await page.route("**/api/recognize", async (route) => {
+    await new Promise((done) => setTimeout(done, 1500));
+    await route.fulfill({ json: { items: FOUND.slice(0, 2) } });
+  });
+  await page.goto("/");
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  await page.getByRole("button", { name: "The power is back: check my food" }).click();
+  await page.getByLabel("The power went out").fill(new Date(Date.now() - 6 * 3_600_000 - new Date().getTimezoneOffset() * 60_000)
+    .toISOString().slice(0, 16));
+  await page.getByRole("button", { name: "Next: check my food" }).click();
+  await page.getByLabel("Add something from the fridge").fill("deli turkey");
+  await page.getByRole("button", { name: /Lunchmeats/ }).click();
+  await page.getByRole("button", { name: /Try a sample fridge/ }).click();
+  await page.getByRole("button", { name: "See what to do with 1 item" }).click(); // leave while the photo is read
+  await expect(page.locator(".line")).toHaveCount(3);
+  await expect(page.locator(".line").filter({ hasText: "carton of milk" })).toBeVisible();
 });
 
 test("without the recognizer, the photo says so and adding by hand still works", async ({ page }) => {
@@ -71,7 +98,8 @@ test("without the recognizer, the photo says so and adding by hand still works",
   await page.goto("/#/check");
   await page.reload();
   await page.getByRole("button", { name: /Try a sample fridge/ }).click();
-  await expect(page.getByText("Photo recognition isn't set up here. Add items by hand.")).toBeVisible();
+  await expect(page.locator(".photo-message")).toHaveText("Photo recognition isn't set up here. Add items by hand.");
+  await expect(page.getByRole("status")).toHaveText("Photo recognition isn't set up here. Add items by hand.");
   await page.getByLabel("Add something from the fridge").fill("deli turkey");
   await page.getByRole("button", { name: /Lunchmeats/ }).click();
   await expect(page.getByText("1 item so far: deli turkey")).toBeVisible();

@@ -6,11 +6,12 @@ const SNAP_DIRECTORY = "https://www.fns.usda.gov/snap/state-directory";
 const when = (iso: string | null) =>
   iso ? new Date(iso).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) : "not given";
 
-/** A dated, printable list of what was thrown out, for SNAP replacement or an insurance claim. */
+/** A dated, printable list of what was thrown out, for SNAP replacement or an insurance claim: everything marked Toss,
+ * and anything marked Check that the person ticked as thrown out. */
 export function LossRecord({ items, outage, now }: { items: Item[]; outage: Outage; now: number }) {
   const tossed = items
     .map((item) => ({ item, verdict: verdict(item, outage, now) }))
-    .filter(({ verdict }) => verdict.call === "toss");
+    .filter(({ item, verdict }) => verdict.call === "toss" || (verdict.call === "check" && !verdict.pending && item.cleared));
   const hours = outageHours(outage, now);
 
   return (
@@ -34,14 +35,14 @@ export function LossRecord({ items, outage, now }: { items: Item[]; outage: Outa
               <tr key={item.id}>
                 <td>{item.name}</td>
                 <td>{item.place}</td>
-                <td>{verdict.row?.label ?? "—"}</td>
+                <td>{verdict.row?.label ?? "Not on the chart"}{verdict.call === "check" ? " (checked, thrown out)" : ""}</td>
                 <td className="blank" aria-label="fill in by hand" />
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <p>Nothing on the list is marked Toss yet.</p>
+        <p>Nothing on the list is marked Toss, or ticked as thrown out under Check, yet.</p>
       )}
 
       <section className="record-notes">

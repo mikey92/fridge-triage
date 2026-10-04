@@ -15,20 +15,22 @@ US electricity customers averaged 11 hours without power in 2024, nearly twice t
 1. **Cold clock.** Tap "The power is out" and the app counts down the fridge's 4 hours and the freezer's 48 (full) or 24 (half full). It is saved on the device, so closing the tab loses nothing.
 2. **Photos.** When the power is back, add up to three photos and say whether each shows the fridge or the freezer. A vision model lists the food it can see and matches each item to a row of the FoodSafety.gov charts, with "cut" and "opened" when it can tell. It is never asked whether anything is safe. Photos are not stored.
 3. **Verdicts from the chart.** Plain code reads the matched row, how long the power was out, how full the freezer was, whether the doors stayed closed, and any thermometer reading, then says **Toss**, **Check**, **Refreeze** or **Keep**, with the chart row and the condition that applied.
-4. **A photo never keeps food on its own.** Anything the AI matched to a row the chart would keep or refreeze shows as **Confirm** until you tap *Yes, that's right* or fix it. Photos can make peas look like grapes, and the chart keeps some cheeses and throws out others that look the same. Anything it couldn't place goes to Check.
+4. **A photo never keeps food on its own.** Anything the AI matched to a row the chart would keep or refreeze shows as **Confirm**, naming the row it matched ("It matched this to “Fresh fruits, uncut”"), until you tap *Yes, that's right* or fix it. Photos can make peas look like grapes, and the chart keeps some cheeses and throws out others that look the same. Anything it couldn't place goes to Check.
 5. **Fix in one tap.** Change an item's row, mark it cut or whole, opened or sealed, move it to the freezer, say it still has ice crystals, or remove it. The verdict updates immediately.
-6. **Loss record.** A dated, printable list of everything tossed, with the outage times, for a SNAP replacement request or an insurance claim.
+6. **Loss record.** A dated, printable list of everything marked Toss, plus anything under Check you ticked as thrown out, with the outage times, for a SNAP replacement request or an insurance claim.
 
 The clock, adding by hand, the verdicts and the record all work without the AI, and without a connection: after the first visit the app is kept on the device (add it to the home screen), so it opens during an outage with no Wi-Fi. Only reading photos needs the network. `scripts/offline-check.mjs` checks this on the live site: it loads the app, cuts the network, reloads, and adds food by hand.
 
 ### The rules
 
-`src/chart.ts` holds every row of both charts word for word (refrigerated: 54 rows; frozen: 20 rows; FoodSafety.gov, reviewed August 8, 2024). The chart lists some foods only as opened; the app's 9 partner rows for their sealed versions are marked "not a chart row" and always say Check, with what to look for on the label. `src/rules.ts` applies them:
+`src/chart.ts` holds every row of both charts word for word (refrigerated: 54 rows; frozen: 20 rows; FoodSafety.gov, reviewed August 8, 2024). The chart lists some foods only as opened; the app adds 9 partner rows for their sealed versions, marked "not a chart row". Six say Check, with what to look for on the label (keep it only if it was sold unrefrigerated). Three keep, because the chart already keeps the opened version: fruit juice, canned fruit and vinegar-based dressing. `src/rules.ts` applies them:
 
-- **Fridge.** Out 4 hours or less with the doors mostly closed → keep; 2 hours if they were opened a lot or a fridge thermometer read above 40°F. Past that → the chart's "Exposed to 40°F (4°C) or above for more than 2 hours" column. A thermometer reading only ever makes the call stricter: FoodSafety.gov says to discard refrigerated perishables after 4 hours without power.
+- **Fridge.** Out 4 hours or less with the doors mostly closed → keep; 2 hours if they were opened a lot or a fridge thermometer read 40°F or above. Past that → the chart's "Exposed to temperatures of 40°F (4°C) or above for more than 2 hours" column. A thermometer reading only ever makes the call stricter: FoodSafety.gov says to discard refrigerated perishables after 4 hours without power.
 - **Opened mayonnaise, tartar sauce, horseradish** → the chart's "discard if above 50°F for over 8 hours": keep within 8 hours or with a reading of 50°F or below; toss past 8 hours with a reading above 50°F; check past 8 hours with no reading.
-- **Freezer.** A reading of 0°F or below → keep. Ice crystals, or a reading of 40°F or below → the chart's "Contains ice crystals" column (refreeze, except ice cream and frozen yogurt). With no reading and the doors closed, a full freezer counts 48 hours and a half-full one 24. Less than half full, not sure, or the doors opened a lot: no hold time is counted, so each item says to check it for ice crystals. Past the hold with no ice crystals marked → the chart's warm column; frozen vegetables use its 6-hour rule.
-- **Times that don't add up** (power back before it went out, or a time in the future) → check, never a verdict.
+- **Freezer.** A reading of 0°F or below → keep. Ice crystals, or a reading of 40°F or below → the chart's "Contains ice crystals" column (refreeze, except ice cream and frozen yogurt). With no reading and the doors closed, a full freezer counts 48 hours and a half-full one 24. Less than half full, not sure, or the doors opened a lot: no hold time is counted, so each item says to check it for ice crystals. Past the hold with no ice crystals marked, or with a reading above 40°F → the chart's warm column. Frozen vegetables and vegetable juice use its 6-hour rule, counted from the end of the hold time (48 hours when none can be counted, the longest any freezer holds), with or without a reading.
+- **Times that don't add up** (power back before it went out, or a time in the future) → check, never a verdict. Times are compared to the minute, as the form shows them.
+- **The cold clock** counts down on the same terms: 2 hours for the fridge if the doors were opened a lot or it read 40°F or above, and no freezer hold time with the doors opened.
+- **Saved data** is checked when the app opens. Anything missing or malformed falls back to the stricter choice: no reading, doors opened, and an AI match that still needs a Yes.
 
 ### How well the photo reading works
 
@@ -42,13 +44,23 @@ Measured on 13 public-domain USDA photos of real fridges, every item labeled by 
 
 The first version read raw chicken in the meat drawer as freezer food and trusted guesses it marked unsure. Now the person says which appliance each photo shows, and every Keep from a photo waits for their Yes. The AI still matched 4 toss-worthy answers to a Keep row (peas as "grapes"); they show as Confirm, named, for the person to catch.
 
+## Accessibility
+
+Someone sorting a fridge after an outage may be doing it by flashlight, on a phone, or with a screen reader. Checked with:
+
+- **axe-core** on 10 screens in dark and light mode (`node scripts/a11y-check.mjs`): no violations. **Lighthouse** accessibility: 100.
+- **Keyboard only** (`node scripts/keyboard-check.mjs`): the whole journey with Tab, Enter and Space, checking where focus lands after every screen change and that every control shows a focus ring.
+- **VoiceOver** on macOS with Chrome, driven by its own keys, with what it said read back from its caption panel (`scripts/voiceover/`).
+
+What the screen-reader test found, all fixed: the cold clock was re-read every second (it now speaks to the minute); focus fell to the top of the page when the sample-photo button disappeared, and the photo's result was never announced (focus stays on the photo button, and "Found 6 items" is announced); each Toss and Check item's name was read twice (once now); starting the clock or starting over removed the button that had focus, leaving the reader at the top of the page (focus now moves to the new heading). The Yes button names the match itself ("Yes, “container of grapes” is “Fresh fruits, uncut”"), so a wrong match is audible, and form errors are announced as they appear.
+
 ## Run it
 
 ```bash
 npm install
 npm run dev            # http://localhost:5173
-npm test               # rules, clock, storage, recognizer answer checks (Vitest)
-npm run e2e            # the whole journey in Chrome, recognizer stubbed (Playwright)
+npm test               # rules, clock, storage, recognizer answer checks (Vitest, 63 tests)
+npm run e2e            # the whole journey in Chrome, recognizer stubbed (Playwright, 3 tests)
 npx tsx eval/score.ts eval/runs/v2-gpt-5.5-low    # score saved recognizer runs against the hand labels
 ```
 

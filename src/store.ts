@@ -1,7 +1,7 @@
 // App state: the outage and the item list, in one reducer, saved on this device so a closed tab loses nothing.
-import { useEffect, useReducer } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import type { Place } from "./chart";
-import type { Item, Outage } from "./rules";
+import { FREEZER_MIN_F, FRIDGE_MIN_F, MAX_F, type Item, type Outage } from "./rules";
 
 export type State = { outage: Outage; items: Item[] };
 
@@ -52,25 +52,35 @@ export function newItem(fields: { name: string; place: Place; row: string | null
     cleared: false, ...fields, from };
 }
 
-const isoOrNull = (value: unknown) => (typeof value === "string" && Number.isFinite(Date.parse(value)) ? value : null);
+// Saved data is checked field by field. Whatever is missing or wrong falls back to the stricter choice: no reading,
+// doors opened, an AI match that still needs the person's Yes.
+const isoOrNull = (value: unknown) => {
+  if (typeof value !== "string") return null;
+  const year = new Date(value).getUTCFullYear(); // NaN for a time that isn't one
+  return year >= 1000 && year <= 9999 ? value : null; // a time the date fields can show
+};
 const numberOrNull = (value: unknown) => (typeof value === "number" && Number.isFinite(value) ? value : null);
+const readingOrNull = (value: unknown, minF: number) => {
+  const reading = numberOrNull(value);
+  return reading !== null && reading >= minF && reading <= MAX_F ? reading : null;
+};
 const boolOrNull = (value: unknown) => (typeof value === "boolean" ? value : null);
 const FILLS: Outage["freezerFill"][] = ["full", "half", "low", "unknown"];
 
-/** Saved outage facts, each field checked; anything that isn't the right type falls back to empty. */
 function cleanOutage(raw: Record<string, unknown>): Outage {
   return {
     start: isoOrNull(raw.start),
     end: isoOrNull(raw.end),
     freezerFill: FILLS.includes(raw.freezerFill as Outage["freezerFill"]) ? (raw.freezerFill as Outage["freezerFill"]) : "unknown",
-    doorClosed: typeof raw.doorClosed === "boolean" ? raw.doorClosed : true,
-    fridgeTempF: numberOrNull(raw.fridgeTempF),
-    freezerTempF: numberOrNull(raw.freezerTempF),
+    doorClosed: raw.doorClosed === true,
+    fridgeTempF: readingOrNull(raw.fridgeTempF, FRIDGE_MIN_F),
+    freezerTempF: readingOrNull(raw.freezerTempF, FREEZER_MIN_F),
   };
 }
 
 function cleanItem(raw: Record<string, unknown>): Item | null {
   if (typeof raw.id !== "string" || typeof raw.name !== "string") return null;
+  const from = raw.from === "hand" ? "hand" : "photo";
   return {
     id: raw.id,
     name: raw.name,
@@ -79,9 +89,9 @@ function cleanItem(raw: Record<string, unknown>): Item | null {
     cut: boolOrNull(raw.cut),
     opened: boolOrNull(raw.opened),
     ice: raw.ice === true,
-    sure: raw.sure !== false,
-    confirmed: raw.from !== "photo" || raw.confirmed === true,
-    from: raw.from === "photo" ? "photo" : "hand",
+    sure: raw.sure === true,
+    confirmed: from === "hand" || raw.confirmed === true,
+    from,
     cleared: raw.cleared === true,
   };
 }
@@ -91,8 +101,17 @@ export function load(storage?: Pick<Storage, "getItem">): State {
   try {
     const saved = JSON.parse((storage ?? globalThis.localStorage)?.getItem(STORAGE_KEY) ?? "null");
     if (saved && typeof saved === "object" && Array.isArray(saved.items) && saved.outage && typeof saved.outage === "object") {
-      const items = (saved.items as unknown[]).flatMap((item) => (item && typeof item === "object" ? [cleanItem(item as Record<string, unknown>)] : []));
-      return { outage: cleanOutage(saved.outage), items: items.filter((item): item is Item => item !== null) };
+      const items: Item[] = [];
+      const ids = new Set<string>();
+      for (const raw of saved.items as unknown[]) {
+        const item = raw && typeof raw === "object" ? cleanItem(raw as Record<string, unknown>) : null;
+        if (!item) continue;
+        // Two items with one id would be fixed and removed together: give the later one its own.
+        while (ids.has(item.id)) item.id = `${item.id}-${items.length}`;
+        ids.add(item.id);
+        items.push(item);
+      }
+      return { outage: cleanOutage(saved.outage), items };
     }
   } catch {
     // unreadable or blocked storage: start fresh
@@ -110,16 +129,28 @@ export function save(state: State, storage?: Pick<Storage, "setItem" | "removeIt
   }
 }
 
+let list = 0; // goes up on Start over (here or in another tab)
+
+/** Which item list is current. A photo answer that arrives after Start over belongs to the old list and is dropped. */
+export const currentList = () => list;
+
 export function useAppState() {
   const [state, dispatch] = useReducer(reducer, undefined, () => load());
   useEffect(() => save(state), [state]);
   // Another tab changed the saved state: show it here instead of overwriting it later.
   useEffect(() => {
     const onStorage = (event: StorageEvent) => {
-      if (event.key === STORAGE_KEY || event.key === null) dispatch({ type: "replace", state: load() });
+      if (event.key !== STORAGE_KEY && event.key !== null) return;
+      const next = load();
+      if (next === EMPTY) list += 1;
+      dispatch({ type: "replace", state: next });
     };
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);
   }, []);
-  return [state, dispatch] as const;
+  const send = useCallback((action: Action) => {
+    if (action.type === "reset") list += 1;
+    dispatch(action);
+  }, []);
+  return [state, send] as const;
 }

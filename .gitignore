@@ -16,3 +16,6 @@ test-results/
 playwright-report/
 *.task.json
 .DS_Store
+
+# Built locally from scripts/voiceover/vo-caption.swift
+scripts/voiceover/vo-caption

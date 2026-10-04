@@ -43,7 +43,7 @@ The model had marked six of the ten tuning-photo answers unsure, and the app kep
 
 1. **The person says which appliance each photo shows.** A meat drawer is part of the fridge; the model was guessing. This alone removes 8 of the 14 unsafe answers.
 2. **A rewritten prompt.** Read labels (a safe-handling label or a whole-bird shape means raw meat or poultry); call anything foil-wrapped or opaque "contents unclear"; put a mixed package under its most perishable food; say *sure* only when the item is plainly visible.
-3. **The AI's match never keeps food on its own.** Every item from a photo that the chart would keep or refreeze is shown as **Confirm** — "Photos can fool the AI. If this is “container of grapes”, the chart says keep" — until the person taps *Yes, that's right* or fixes the match. Cheeses and butter get a sharper warning, because the chart keeps some cheeses and discards others that look the same.
+3. **The AI's match never keeps food on its own.** Every item from a photo that the chart would keep or refreeze is shown as **Confirm** — "Photos can fool the AI. It matched this to “Fresh fruits, uncut”. If that's right, the chart says keep." — until the person taps *Yes, that's right* or fixes the match. It names the chart row the AI matched, with its cut or opened state, so a "container of cut pineapple" matched to "Fresh fruits, uncut" reads as the mistake it is. Cheeses and butter get a sharper warning, because the chart keeps some cheeses and discards others that look the same.
 
 The verdicts still come only from the chart rows and the outage times.
 

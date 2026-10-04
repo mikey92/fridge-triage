@@ -86,8 +86,10 @@ export function cleanItems(raw: unknown, shows?: Place): RecognizedItem[] {
       name,
       place,
       row: row && row.place === place ? row.id : null,
-      cut: bool(item.cut),
-      opened: bool(item.opened),
+      // A confused answer's cut/opened flags can't be trusted either: the moved row's own state stands (frozen fruit
+      // moved to the fridge is cut fruit, not whole).
+      cut: crossed ? null : bool(item.cut),
+      opened: crossed ? null : bool(item.opened),
       sure: item.sure === true && !!row && !crossed && !row.lookAlike,
     });
     if (out.length >= MAX_ITEMS) break;

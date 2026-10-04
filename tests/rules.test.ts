@@ -93,6 +93,12 @@ describe("fridge verdicts", () => {
     expect(judge(item("r-milk"), outage(2, { fridgeTempF: 45 })).call).toBe("keep");
   });
 
+  it("counts a reading of exactly 40°F as warm, like the chart's \"40°F (4°C) or above\" column", () => {
+    expect(judge(item("r-milk"), outage(3, { fridgeTempF: 40 })).call).toBe("toss");
+    expect(judge(item("r-milk"), outage(2, { fridgeTempF: 40 })).why).toMatch(/your fridge was at 40°F, and the chart allows 2 hours/);
+    expect(judge(item("r-milk"), outage(3, { fridgeTempF: 39 })).call).toBe("keep");
+  });
+
   it("applies the 50°F / 8-hour rule to opened mayonnaise", () => {
     expect(judge(item("r-mayo"), outage(9)).call).toBe("check");
     expect(judge(item("r-mayo"), outage(9, { fridgeTempF: 48 })).call).toBe("keep");
@@ -117,7 +123,7 @@ describe("fridge verdicts", () => {
     expect(block.call).toBe("keep");
     expect(block.row?.label).toMatch(/^Hard cheeses: Cheddar/);
     expect(shredded.why).toMatch(/7 h 30 min/);
-    expect(shredded.column).toBe("Exposed to 40°F (4°C) or above for more than 2 hours");
+    expect(shredded.column).toBe("Exposed to temperatures of 40°F (4°C) or above for more than 2 hours");
   });
 });
 
@@ -174,6 +180,17 @@ describe("freezer verdicts", () => {
     }
     expect(judge(item("f-veg"), outage(31)).call).toBe("toss");
   });
+
+  it("applies the 6-hour rule with a warm reading too: no freezer stays cold past its hold time", () => {
+    for (const row of ["f-veg", "f-veg-juice"]) {
+      expect(judge(item(row), outage(100, { freezerTempF: 50 })).call, row).toBe("toss");
+      expect(judge(item(row), outage(30, { freezerTempF: 50 })).call, row).toBe("toss"); // 6 h past a half-full freezer's 24
+      expect(judge(item(row), outage(26, { freezerTempF: 50 })).call, row).toBe("check");
+      expect(judge(item(row), outage(60, { freezerTempF: 50, doorClosed: false })).call, row).toBe("toss"); // past even 48 + 6
+      expect(judge(item(row), outage(50, { freezerTempF: 50, doorClosed: false })).call, row).toBe("check");
+    }
+    expect(judge(item("f-veg"), outage(100, { freezerTempF: 50 })).why).toMatch(/Your freezer was at 50°F after 100 h without power: 76 h past/);
+  });
 });
 
 describe("items and outages the app can't judge", () => {
@@ -203,6 +220,18 @@ describe("items and outages the app can't judge", () => {
     expect(judge(item("r-milk"), justStarted).call).toBe("keep");
     expect(coldClock(justStarted, NOW)?.outMs).toBe(0);
   });
+
+  it("compare the times to the minute, as the form shows them", () => {
+    const start = START + 45_000; // the power-out button keeps the seconds; the form's end field can't
+    expect(outageHours(outage(0, { start: new Date(start).toISOString(), end: new Date(START).toISOString() }), NOW)).toBe(0);
+    expect(outageHours(outage(0, { start: new Date(start).toISOString(), end: new Date(START - 60_000).toISOString() }), NOW)).toBeNull();
+  });
+
+  it("give the clock and the verdicts the same answer for an end in the future", () => {
+    const future = outage(0, { start: new Date(NOW - 3_600_000).toISOString(), end: new Date(NOW + 3 * 3_600_000).toISOString() });
+    expect(outageHours(future, NOW)).toBeNull();
+    expect(coldClock(future, NOW)).toBeNull();
+  });
 });
 
 describe("the AI's matches", () => {
@@ -212,11 +241,18 @@ describe("the AI's matches", () => {
   it("never keep or refreeze until the person confirms them, even when the AI was sure", () => {
     const sure = judge(match("r-fruit-whole"), outage(7.5));
     expect(sure).toMatchObject({ call: "check", pending: "keep" });
-    expect(sure.why).toMatch(/Photos can fool the AI\. If this is “container of grapes”, the chart says keep/);
+    expect(sure.why).toMatch(/Photos can fool the AI\. It matched this to “Fresh fruits, uncut”\. If that's right, the chart says keep/);
     expect(judge(match("r-veg-whole", { sure: false }), outage(7.5)).why).toMatch(/wasn't sure/);
     expect(judge(match("r-hard-cheese"), outage(7.5)).why).toMatch(/look alike.*“Hard cheeses/);
     expect(judge(match("f-meat", { ice: true }), outage(30))).toMatchObject({ call: "check", pending: "refreeze" });
     expect(judge(match("r-fruit-whole"), outage(1))).toMatchObject({ call: "check", pending: "keep" });
+  });
+
+  it("name the chart row the AI matched, with its cut state, so a wrong match reads as wrong", () => {
+    const pineapple = judge(match("r-fruit-whole", { name: "container of cut pineapple", cut: false }), outage(7.5));
+    expect(pineapple).toMatchObject({ call: "check", pending: "keep" });
+    expect(pineapple.why).toMatch(/It matched this to “Fresh fruits, uncut”/);
+    expect(pineapple.why).not.toMatch(/cut pineapple/);
   });
 
   it("keep once confirmed, and items added by hand need no confirming", () => {

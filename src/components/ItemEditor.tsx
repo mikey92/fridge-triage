@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Place } from "../chart";
-import { effectiveRow, moveRow, unconfirmed, type Item } from "../rules";
+import { effectiveRow, matchDoubt, moveRow, unconfirmed, type Item } from "../rules";
 import { RowPicker } from "./RowPicker";
 
 /** One-tap fixes for an item: confirm the AI's match, its chart row, cut/whole, opened/sealed, fridge/freezer, ice crystals, or remove it.
@@ -24,10 +24,7 @@ export function ItemEditor({ item, onChange, onRemove }: {
     <div className="editor">
       {unconfirmed(item) && row && (
         <div className="confirm">
-          <p>
-            {row.lookAlike ? "Cheeses and spreads look alike in photos." : item.sure ? "Photos can fool the AI." : "The AI wasn't sure."}{" "}
-            Is this “{row.lookAlike ? row.label : item.name}”?
-          </p>
+          <p>{matchDoubt(item, row)} Is that right?</p>
           <button type="button" className="secondary" onClick={() => onChange({ confirmed: true })}>Yes, that's right</button>
         </div>
       )}

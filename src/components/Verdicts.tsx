@@ -9,8 +9,8 @@ const GROUPS: Group[] = ["toss", "check", "confirm", "refreeze", "keep"];
 const TITLES: Record<Group, string> = { toss: "Toss", check: "Check", confirm: "Confirm", refreeze: "Refreeze", keep: "Keep" };
 const COUNTS: Record<Group, string> = { toss: "toss", check: "check", confirm: "to confirm", refreeze: "refreeze", keep: "keep" };
 const HINTS: Record<Group, string> = {
-  toss: "Throw these out.",
-  check: "Look closer before deciding. When in doubt, throw it out.",
+  toss: "Throw these out, and tick each one as it goes.",
+  check: "Look closer before deciding. When in doubt, throw it out, and tick it.",
   confirm: "Fine to keep or refreeze if the AI named them right. Look at each one, then tap Yes.",
   refreeze: "Safe to refreeze; quality may suffer.",
   keep: "Safe to keep.",
@@ -101,13 +101,15 @@ function VerdictLine({ item, verdict, editing, onEdit, onToggleCleared, onChange
     if (refocus === item.id) refocus = null;
   });
   return (
-    <li className={item.cleared ? "line cleared" : "line"}>
+    // The thrown-out tick only counts in Toss and Check: a fix that moves the item to Keep shows it plainly again.
+    <li className={item.cleared && onToggleCleared ? "line cleared" : "line"}>
       <div className="line-head">
         {onToggleCleared ? (
           <label className="clear-toggle">
-            <input type="checkbox" checked={item.cleared} onChange={() => onToggleCleared(item)} />
-            <span className="line-name">{item.name}</span>
-            <span className="visually-hidden"> (tick when cleared)</span>
+            {/* Named once, on the checkbox: screen readers would otherwise read the item's name twice. */}
+            <input type="checkbox" checked={item.cleared} onChange={() => onToggleCleared(item)}
+              aria-label={`${item.name} (tick when thrown out)`} />
+            <span className="line-name" aria-hidden="true">{item.name}</span>
           </label>
         ) : <span className="line-name">{item.name}</span>}
         <span className="line-place">{item.place}</span>
@@ -123,8 +125,9 @@ function VerdictLine({ item, verdict, editing, onEdit, onToggleCleared, onChange
       {onChange && (
         <div className="line-actions">
           {unmatched && <span className="unsure">Pick its chart row</span>}
-          {verdict.pending && onConfirm && (
-            <button type="button" className="secondary yes" data-item={item.id} aria-label={`Yes, “${item.name}” is right`}
+          {verdict.pending && onConfirm && verdict.row && (
+            // Named with the chart row, so a screen reader user hears the match itself, not just the AI's name for it.
+            <button type="button" className="secondary yes" data-item={item.id} aria-label={`Yes, “${item.name}” is “${verdict.row.label}”`}
               onClick={() => onConfirm(item)}>Yes, that's right</button>
           )}
           <button ref={fix} type="button" className="link fix" data-item={item.id} aria-expanded={editing}

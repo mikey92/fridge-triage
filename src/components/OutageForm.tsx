@@ -1,17 +1,16 @@
-import { useId, useState } from "react";
-import type { Outage } from "../rules";
+import { useEffect, useId, useState } from "react";
+import { endsBeforeStart, FREEZER_MIN_F, FRIDGE_MIN_F, GRACE, MAX_F, type Outage } from "../rules";
 import { fromLocalInput, toLocalInput } from "../time";
 
-const GRACE = 5 * 60_000;
-
-/** What's wrong with the outage times, if anything: shown under the fields, and it holds back the Next button. */
+/** What's wrong with the outage times, if anything: shown under the fields, and it holds back the Next button.
+ * Same terms as outageSpan in rules.ts, so the form and the verdicts never disagree. */
 export function outageTimeProblem(outage: Outage, now: number): { start?: string; end?: string } {
   const start = outage.start ? Date.parse(outage.start) : null;
   const end = outage.end ? Date.parse(outage.end) : null;
   const problem: { start?: string; end?: string } = {};
   if (start !== null && start > now + GRACE) problem.start = "That's in the future. Check the date.";
   if (end !== null && end > now + GRACE) problem.end = "That's in the future. Check the date.";
-  else if (start !== null && end !== null && end < start) problem.end = "That's before the power went out.";
+  else if (start !== null && end !== null && endsBeforeStart(start, end)) problem.end = "That's before the power went out.";
   return problem;
 }
 
@@ -29,25 +28,21 @@ export function OutageForm({ outage, onChange, now }: { outage: Outage; onChange
     <div className="form">
       <div className="field">
         <label htmlFor={`${id}-start`}>The power went out</label>
-        <input id={`${id}-start`} type="datetime-local" step={300} max={nowInput} value={toLocalInput(outage.start)}
-          aria-invalid={!!problem.start} aria-describedby={problem.start ? `${id}-start-error` : undefined}
-          onChange={(event) => onChange({ start: fromLocalInput(event.target.value) })} />
-        {problem.start && <p id={`${id}-start-error`} className="error">{problem.start}</p>}
+        <DateTimeInput id={`${id}-start`} max={nowInput} value={outage.start} error={problem.start}
+          onChange={(start) => onChange({ start })} />
       </div>
 
       <div className="field">
         <label className="check-row">
           <input type="checkbox" checked={stillOut}
-            onChange={(event) => onChange({ end: event.target.checked ? null : new Date(now).toISOString() })} />
+            onChange={(event) => onChange({ end: event.target.checked ? null : new Date().toISOString() })} />
           The power is still out
         </label>
         {!stillOut && (
           <>
             <label htmlFor={`${id}-end`}>The power came back</label>
-            <input id={`${id}-end`} type="datetime-local" step={300} max={nowInput} value={toLocalInput(outage.end)}
-              aria-invalid={!!problem.end} aria-describedby={problem.end ? `${id}-end-error` : undefined}
-              onChange={(event) => onChange({ end: fromLocalInput(event.target.value) })} />
-            {problem.end && <p id={`${id}-end-error`} className="error">{problem.end}</p>}
+            <DateTimeInput id={`${id}-end`} max={nowInput} value={outage.end} error={problem.end}
+              onChange={(end) => onChange({ end })} />
           </>
         )}
       </div>
@@ -80,12 +75,37 @@ export function OutageForm({ outage, onChange, now }: { outage: Outage; onChange
             <button key={u} type="button" aria-pressed={unit === u} onClick={() => setUnit(u)}>°{u}</button>
           ))}
         </div>
-        <TempInput key={`fridge-${unit}`} id={`${id}-fridge-temp`} label="Fridge" unit={unit} minF={32} value={outage.fridgeTempF}
+        <TempInput key={`fridge-${unit}`} id={`${id}-fridge-temp`} label="Fridge" unit={unit} minF={FRIDGE_MIN_F} value={outage.fridgeTempF}
           tooLow="A fridge can't read below freezing after an outage. Check the unit." onChange={(fridgeTempF) => onChange({ fridgeTempF })} />
-        <TempInput key={`freezer-${unit}`} id={`${id}-freezer-temp`} label="Freezer" unit={unit} minF={-40} value={outage.freezerTempF}
+        <TempInput key={`freezer-${unit}`} id={`${id}-freezer-temp`} label="Freezer" unit={unit} minF={FREEZER_MIN_F} value={outage.freezerTempF}
           tooLow="That's colder than a home freezer gets. Check the unit." onChange={(freezerTempF) => onChange({ freezerTempF })} />
       </details>
     </div>
+  );
+}
+
+/** A date and time to the minute. While a part of it is being retyped the field is briefly incomplete: that keeps the
+ * saved time instead of wiping it, and only a complete time is saved. */
+function DateTimeInput({ id, max, value, error, onChange }: {
+  id: string; max: string; value: string | null; error?: string; onChange: (iso: string) => void;
+}) {
+  const [text, setText] = useState(() => toLocalInput(value));
+  // A change made elsewhere (the home screen's buttons, another tab) shows here; the person's own typing isn't undone.
+  useEffect(() => {
+    setText((current) => (fromLocalInput(current) === value ? current : toLocalInput(value)));
+  }, [value]);
+  const errorId = `${id}-error`;
+  return (
+    <>
+      <input id={id} type="datetime-local" step={300} max={max} value={text}
+        aria-invalid={!!error} aria-describedby={error ? errorId : undefined}
+        onChange={(event) => {
+          setText(event.target.value);
+          const iso = fromLocalInput(event.target.value);
+          if (iso) onChange(iso);
+        }} />
+      {error && <p id={errorId} className="error" role="alert">{error}</p>}
+    </>
   );
 }
 
@@ -98,11 +118,12 @@ function TempInput({ id, label, unit, minF, value, tooLow, onChange }: {
 }) {
   const shown = value === null ? "" : String(unit === "F" ? value : toC(value));
   const [text, setText] = useState(shown);
+  const [garbled, setGarbled] = useState(false); // the browser hides text that isn't a number ("1e", "-") from the value
   const typed = text.trim() === "" ? null : Number(text);
   const valueF = typed === null || Number.isNaN(typed) ? null : unit === "F" ? typed : toF(typed);
-  const error = typed !== null && (Number.isNaN(typed) || valueF === null)
+  const error = garbled || (typed !== null && (Number.isNaN(typed) || valueF === null))
     ? "Enter a number."
-    : valueF !== null && valueF < minF ? tooLow : valueF !== null && valueF > 100 ? "That's warmer than a kitchen gets. Check the number." : "";
+    : valueF !== null && valueF < minF ? tooLow : valueF !== null && valueF > MAX_F ? "That's warmer than a kitchen gets. Check the number." : "";
   const errorId = `${id}-error`;
   return (
     <div className="temp">
@@ -111,11 +132,12 @@ function TempInput({ id, label, unit, minF, value, tooLow, onChange }: {
         onChange={(event) => {
           const next = event.target.value;
           setText(next);
+          setGarbled(event.target.validity.badInput);
           const n = next.trim() === "" ? null : Number(next);
           const f = n === null || Number.isNaN(n) ? null : unit === "F" ? n : toF(n);
-          onChange(f !== null && f >= minF && f <= 100 ? f : null);
+          onChange(f !== null && f >= minF && f <= MAX_F ? f : null);
         }} />
-      {error && <p id={errorId} className="error">{error}</p>}
+      {error && <p id={errorId} className="error" role="alert">{error}</p>}
     </div>
   );
 }

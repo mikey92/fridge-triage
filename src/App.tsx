@@ -18,6 +18,12 @@ function readRoute(): Route {
   return ROUTES.includes(name) ? name : "home";
 }
 
+/** Puts keyboard and screen-reader focus on the screen's heading, after a screen change or when the content under
+ * the focused control is replaced (starting the clock, starting over). */
+function focusHeading() {
+  requestAnimationFrame(() => document.querySelector<HTMLElement>("main h1, main h2")?.focus({ preventScroll: true }));
+}
+
 function useRoute(): [Route, (route: Route) => void] {
   const [route, setRoute] = useState(readRoute);
   useEffect(() => {
@@ -27,7 +33,7 @@ function useRoute(): [Route, (route: Route) => void] {
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.querySelector<HTMLElement>("main h1, main h2")?.focus({ preventScroll: true });
+    focusHeading();
   }, [route]);
   const go = (next: Route) => {
     window.location.hash = next === "home" ? "/" : `/${next}`;
@@ -50,6 +56,7 @@ export function App() {
             if (window.confirm("Clear the outage times and the item list on this device?")) {
               dispatch({ type: "reset" });
               go("home");
+              focusHeading();
             }
           }}>Start over</button>
         )}
@@ -93,7 +100,10 @@ function Home({ state, dispatch, go }: ScreenProps) {
         <h1 tabIndex={-1}>Power outage?</h1>
         <p className="lead">Start the cold clock now. When the power comes back, check your fridge and freezer item by item against the FoodSafety.gov charts.</p>
         <div className="stack">
-          <button type="button" className="primary" onClick={() => dispatch({ type: "outage", patch: { start: new Date().toISOString(), end: null } })}>
+          <button type="button" className="primary" onClick={() => {
+            dispatch({ type: "outage", patch: { start: new Date().toISOString(), end: null } });
+            focusHeading();
+          }}>
             The power is out
           </button>
           <button type="button" className="secondary" onClick={() => {

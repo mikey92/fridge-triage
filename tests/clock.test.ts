@@ -32,6 +32,15 @@ describe("the cold clock", () => {
     expect(coldClock(EMPTY_OUTAGE, NOW)).toBeNull();
   });
 
+  it("counts down on the verdicts' terms: 2 hours for the fridge with the doors opened a lot or a reading of 40°F or above", () => {
+    const opened = coldClock(out(1, { freezerFill: "full", doorClosed: false }), NOW)!;
+    expect(opened.fridgeHours).toBe(2);
+    expect(opened.fridgeLeftMs).toBe(1 * HOUR);
+    expect(opened.freezerLeftMs).toBeNull(); // no hold time to count on with the door opened
+    expect(coldClock(out(1, { fridgeTempF: 40 }), NOW)!.fridgeLeftMs).toBe(1 * HOUR);
+    expect(coldClock(out(1, { fridgeTempF: 39 }), NOW)!.fridgeLeftMs).toBe(3 * HOUR);
+  });
+
   it("formats countdowns past 24 hours", () => {
     expect(hms(19 * HOUR + 61_000)).toBe("19:01:01");
     expect(hms(-5)).toBe("0:00:00");
@@ -41,6 +50,11 @@ describe("the cold clock", () => {
     const iso = new Date(NOW).toISOString();
     expect(fromLocalInput(toLocalInput(iso))).toBe(iso);
     expect(fromLocalInput("")).toBeNull();
+  });
+
+  it("leaves the date field empty for a time it can't show, instead of crashing", () => {
+    expect(toLocalInput("+275760-09-13T00:00:00.000Z")).toBe("");
+    expect(toLocalInput("not a date")).toBe("");
   });
 });
 

@@ -175,7 +175,7 @@ button.link {
   text-underline-offset: 3px;
 }
 button.secondary { width: 100%; font-weight: 600; }
-button:disabled { opacity: 0.45; cursor: not-allowed; }
+button:disabled, button[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; }
 .stack { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
 main > section > button.primary, main > section > button.secondary { margin-top: 8px; }
 
