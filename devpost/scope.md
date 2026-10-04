@@ -24,7 +24,7 @@ The cold clock is the reason to open it again at the next outage, before the fri
 ## Inspiration & Identity
 - A field triage tag: a few colours, one decision per item, no paragraphs.
 - Reading by flashlight: dark by default (it also saves an OLED phone's battery when the power is out), large type, high contrast, big tap targets.
-- Sources: FoodSafety.gov "Food Safety During Power Outage" (https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage) and USDA "Keeping Food Safe During an Emergency" (https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/emergencies/keeping-food-safe-during-emergency).
+- Source: FoodSafety.gov "Food Safety During Power Outage" (https://www.foodsafety.gov/food-safety-charts/food-safety-during-power-outage), which carries both charts and the USDA 4-hour and 24/48-hour guidance.
 - Calm and plain. No cartoon food, no sparkle icons, no chat bubbles.
 
 ## Why This Matters to the Learner

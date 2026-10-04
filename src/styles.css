@@ -227,3 +227,26 @@ input[aria-invalid="true"] { border-color: var(--toss); }
 .editor-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
 .editor-row p { margin: 0; font-size: 0.9rem; }
 button.danger { border-color: var(--toss); color: var(--toss); background: transparent; }
+
+.record h1 { margin-bottom: 8px; }
+.record-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; margin: 0 0 16px; }
+.record-facts div { margin: 0; }
+.record-facts dt { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+.record-facts dd { margin: 0; font-weight: 600; }
+.record-table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 0.95rem; }
+.record-table caption { text-align: left; font-weight: 700; margin: 0 0 6px; }
+.record-table th, .record-table td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.record-table th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.record-table td:nth-child(3) { color: var(--muted); font-size: 0.85rem; }
+.record-table .blank { width: 70px; }
+.record-notes h2 { font-size: 1rem; margin: 16px 0 6px; }
+.record-notes p { margin: 0 0 8px; font-size: 0.95rem; }
+
+@media print {
+  :root { --bg: #fff; --card: #fff; --line: #c9ced6; --text: #000; --muted: #444; color-scheme: light; }
+  body { background: #fff; color: #000; font-size: 12pt; }
+  .no-print { display: none !important; }
+  .app { max-width: none; padding: 0; }
+  .record-table .blank { border-bottom: 1px solid #000; }
+  a { color: #000; }
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Place, Row } from "./chart";
 import { ColdClock } from "./components/ColdClock";
+import { LossRecord } from "./components/LossRecord";
 import { OutageForm } from "./components/OutageForm";
 import { PhotoSlots } from "./components/PhotoSlots";
 import { RowPicker } from "./components/RowPicker";
@@ -9,8 +10,8 @@ import { formatHours, outageHours } from "./rules";
 import { newItem, useAppState, type Action, type State } from "./store";
 import { useNow } from "./time";
 
-type Route = "home" | "outage" | "check" | "results";
-const ROUTES: Route[] = ["home", "outage", "check", "results"];
+type Route = "home" | "outage" | "check" | "results" | "record";
+const ROUTES: Route[] = ["home", "outage", "check", "results", "record"];
 
 function readRoute(): Route {
   const name = window.location.hash.replace(/^#\/?/, "") as Route;
@@ -42,7 +43,7 @@ export function App() {
 
   return (
     <div className="app">
-      <header className="top">
+      <header className="top no-print">
         <a className="brand" href="#/">Fridge Triage</a>
         {started && (
           <button type="button" className="link" onClick={() => {
@@ -67,6 +68,15 @@ export function App() {
         )}
         {route === "check" && <Check state={state} dispatch={dispatch} go={go} />}
         {route === "results" && <Results state={state} dispatch={dispatch} go={go} now={now} />}
+        {route === "record" && (
+          <>
+            <LossRecord items={state.items} outage={state.outage} now={now} />
+            <div className="stack no-print">
+              <button type="button" className="primary" onClick={() => window.print()}>Print or save as PDF</button>
+              <button type="button" className="link" onClick={() => go("results")}>Back to the list</button>
+            </div>
+          </>
+        )}
       </main>
     </div>
   );
@@ -164,7 +174,10 @@ function Results({ state, dispatch, go, now }: ScreenProps & { now: number }) {
         onToggleCleared={(item) => dispatch({ type: "update", id: item.id, patch: { cleared: !item.cleared } })}
         onChange={(item, patch) => dispatch({ type: "update", id: item.id, patch })}
         onRemove={(item) => dispatch({ type: "remove", id: item.id })} />
-      <button type="button" className="secondary" onClick={() => go("check")}>Add more food</button>
+      <div className="stack">
+        <button type="button" className="primary" onClick={() => go("record")}>Save loss record</button>
+        <button type="button" className="secondary" onClick={() => go("check")}>Add more food</button>
+      </div>
     </section>
   );
 }

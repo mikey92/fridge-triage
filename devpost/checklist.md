@@ -49,7 +49,7 @@ Build mode: fast (the entrant delegated the build and the hands-on checks to the
   Learner check: Change cut melon to a whole melon and watch the verdict change.
   Commit: `Let people correct items and see verdicts update`
 
-- [ ] **5. Save a dated record of what was thrown out**
+- [x] **5. Save a dated record of what was thrown out**
   Becomes usable: "Save loss record" opens a print-ready page with the date, outage times and length, the tossed items, and the SNAP note.
   Why now: It finishes the core journey and is the reason someone keeps the result.
   PRD ref: `prd.md > Loss record`
